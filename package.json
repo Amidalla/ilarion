@@ -1,0 +1,48 @@
+{
+  "name": "prp-ilarion",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "webpack serve",
+    "build": "webpack --mode=production --progress"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Amidalla/arteya.git"
+  },
+  "author": "Aleksandra Gavrasova",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Amidalla/arteya/issues"
+  },
+  "homepage": "https://github.com/Amidalla/arteya#readme",
+  "description": "",
+  "devDependencies": {
+    "copy-webpack-plugin": "^13.0.1",
+    "css-loader": "^7.1.2",
+    "favicons-webpack-plugin": "^6.0.1",
+    "html-webpack-plugin": "^5.6.4",
+    "mini-css-extract-plugin": "^2.9.4",
+    "sass": "^1.90.0",
+    "sass-loader": "^16.0.5",
+    "serve": "^14.2.4",
+    "style-loader": "^4.0.0",
+    "webpack": "^5.101.2",
+    "webpack-cli": "^6.0.1",
+    "webpack-dev-server": "^5.2.2"
+  },
+  "packageManager": "yarn@4.9.2",
+  "dependencies": {
+    "@fancyapps/ui": "^6.1.7",
+    "favicons": "^7.2.0",
+    "gsap": "^3.13.0",
+    "html-loader": "^5.1.0",
+    "imask": "^7.6.1",
+    "posthtml-expressions": "^1.11.4",
+    "posthtml-include": "^2.0.1",
+    "posthtml-inline-svg": "^0.2.0",
+    "posthtml-loader": "^2.0.1",
+    "swiper": "^11.2.10",
+    "vanilla-lazyload": "^19.1.3"
+  }
+}

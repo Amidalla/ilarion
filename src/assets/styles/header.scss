@@ -1,0 +1,94 @@
+@use "../styles/mixins.scss" as *;
+
+
+.header {
+  background: #265281;
+  backdrop-filter: blur(7.050000190734863px);
+
+  &__inner {
+    display: flex;
+    align-items: center;
+  }
+
+  &__navigation {
+    margin-left: auto;
+  }
+
+  &__logo {
+    margin-right: 22px;
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+
+    span {
+      display: inline-block;
+      color: #FAF4C3;
+
+      &:first-child {
+        font-size: 15px;
+
+      }
+
+      &:nth-child(2) {
+        font-family:  var(--font-ponomar);
+        font-weight: var(--font-regular);
+        font-size: 26px;
+      }
+
+      &:last-child {
+        font-size: 15px;
+      }
+    }
+  }
+
+  &__list {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    margin-right: 16px;
+  }
+
+  &__link {
+    font-size: 16px;
+    color: #FAF4C3;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  &__contacts {
+    display: flex;
+    align-items: center;
+  }
+
+  &__mail {
+    button {
+      display: flex;
+      align-items: center;
+      font-size: 16px;
+      color: #FAF4C3;
+      cursor: pointer;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  &__phone {
+    display: flex;
+    align-items: center;
+
+    a {
+      font-size: 16px;
+      color: #FAF4C3;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}
