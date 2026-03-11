@@ -3,6 +3,7 @@ import "../styles/styles.scss";
 import "../styles/header.scss";
 import "../styles/footer.scss";
 import "../styles/home.scss";
+import "../styles/modals.scss";
 import LazyLoad from "vanilla-lazyload";
 import Swiper from 'swiper';
 import 'swiper/swiper-bundle.css';
@@ -11,13 +12,12 @@ import { Fancybox } from "@fancyapps/ui";
 import "@fancyapps/ui/dist/fancybox/fancybox.css";
 import IMask from 'imask';
 import { SlidersInit } from './sliders.js';
-import { InitMobileMenu } from './modals.js';
+import { initFeedbackModal, initMobileMenu } from './modals.js';
 
-// Инициализация модулей Swiper (оставлена, так как может понадобиться позже)
+// Инициализация модулей Swiper
 Swiper.use([Pagination, Navigation, Autoplay, Thumbs, EffectFade]);
 
 function initPhoneMasks() {
-
     const phoneInputs = document.querySelectorAll(`
         input[type="tel"][name="tel"],
         input[type="tel"][data-phone-input]
@@ -64,35 +64,27 @@ function initPhoneMasks() {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-    // Инициализируем только LazyLoad и маски
+    // Инициализируем LazyLoad
     const lazyLoadInstance = new LazyLoad();
+
+    // Инициализируем маски для телефонов
     initPhoneMasks();
 
-    // Слайдеры, Fancybox и модальные окна пока не инициализируем
-    // SlidersInit();
-    // Fancybox.bind("[data-fancybox]", {
-    //     Thumbs: false,
-    //     Toolbar: false,
-    //     Images: {
-    //         zoom: true,
-    //     },
-    // });
-    // InitMobileMenu();
-    // InitSideMenu();
+    // Инициализируем мобильное меню
+    initMobileMenu();
 
-    // Обработчики resize и contentLoaded пока не нужны, но можно оставить для будущего использования
-    /*
-    let resizeTimeout;
-    window.addEventListener('resize', function() {
-        clearTimeout(resizeTimeout);
-        resizeTimeout = setTimeout(handleResize, 250);
-    });
+    // Инициализируем модальное окно обратной связи
+    initFeedbackModal();
 
-    document.addEventListener('contentLoaded', function() {
-        // Здесь можно будет добавить логику позже
+    // Инициализируем слайдеры
+    SlidersInit();
+
+    // Инициализируем Fancybox для галерей
+    Fancybox.bind("[data-fancybox]", {
+        Thumbs: false,
+        Toolbar: false,
+        Images: {
+            zoom: true,
+        },
     });
-    */
 });
-
-// Экспорты можно оставить или удалить, пока они не используются
-// export { initAnimations, initStaggeredAnimations };

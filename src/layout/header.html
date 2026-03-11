@@ -11,32 +11,97 @@
            </div>
            <nav class="header__navigation">
                <ul class="header__list">
-                   <li class="Header__item">
-                       <a href="#" class="header__link">Главная</a>
+                   <li>
+                       <a href="#">Главная</a>
                    </li>
-                   <li class="Header__item">
-                       <a href="#" class="header__link">Фотоальбом</a>
+                   <li>
+                       <a href="#">Фотоальбом</a>
                    </li>
-                   <li class="Header__item">
-                       <a href="#" class="header__link">Видео</a>
+                   <li>
+                       <a href="#">Видео</a>
                    </li>
-                   <li class="Header__item">
-                       <a href="#" class="header__link">Контакты</a>
+                   <li>
+                       <a href="#">Контакты</a>
                    </li>
                </ul>
            </nav>
            <div class="header__contacts">
                <div class="header__mail">
-                   <button>
-                       <include src="assets/svg/mail.html"></include>
-                       <span>Напишите нам</span>
-                   </button>
+                   <include src="assets/svg/mail.html"></include>
+                   <a href="#">Напишите нам</a>
                </div>
                <div class="header__phone">
                    <include src="assets/svg/header-phone.html"></include>
                    <a href="tel:+79212191012">+7 921 219-10-12</a>
                </div>
            </div>
+           <button class="burger-menu" aria-label="Меню">
+               <span class="burger-menu__line"></span>
+               <span class="burger-menu__line"></span>
+               <span class="burger-menu__line"></span>
+           </button>
        </div>
    </div>
 </header>
+<div class="mobile-nav">
+    <div class="mobile-nav__inner">
+        <div class="decor-item">
+            <include src="assets/svg/decor.html"></include>
+        </div>
+        <ul class="mobile-menu">
+            <li>
+                <a href="#">Пустынножительство</a>
+            </li>
+            <li>
+                <a href="#">Прп. Иларион Гдовский и&nbsp;церковь Покрова Божией Матери&nbsp;д.&nbsp;Озера</a>
+                <ul class="sub-menu">
+                    <li>
+                        <a href="#">Прп&nbsp;Иларион и&nbsp;основанный им&nbsp;на&nbsp;реке Желче монастырь</a>
+                    </li>
+                    <li>
+                        <a href="#">Церковь Покрова Божией Матери после&nbsp;закрытия монастыря</a>
+                    </li>
+                    <li>
+                        <a href="#">Мерзость запустения</a>
+                    </li>
+                    <li>
+                        <a href="#">Часовня памяти&nbsp;прп. Илариона Гдовского</a>
+                    </li>
+                    <li>
+                        <a href="#">Современность</a>
+                    </li>
+                    <li>
+                        <a href="#">Вехи истории</a>
+                    </li>
+                    <li>
+                        <a href="#">Обращение к&nbsp;паломникам</a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">Протоиерей Николай Гурьянов</a>
+                <ul class="sub-menu">
+                    <li>
+                        <a href="#">Благословение</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="page-link">
+                <a href="#">Главная</a>
+            </li>
+            <li class="page-link">
+                <a href="#">Фотоальбом</a>
+            </li>
+            <li class="page-link">
+                <a href="#">Видео</a>
+            </li>
+            <li class="page-link">
+                <a href="#">Контакты</a>
+            </li>
+        </ul>
+        <button class="plain-btn">
+            <include src="assets/svg/button-icon.html"></include>
+            <span>Напишите нам</span>
+        </button>
+    </div>
+</div>

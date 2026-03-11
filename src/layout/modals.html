@@ -1,1 +1,45 @@
+<div class="feedback-modal">
+    <div class="feedback-modal__inner">
+        <h2>Напишите нам</h2>
+        <form class="feedback-form">
+            <fieldset>
+                <label>
+                    <input type="text" name="name" placeholder="Контактно лицо*" required="">
+                </label>
+                <label>
+                    <input type="email" name="email" placeholder="Email" data-phone-input="">
+                </label>
+                <label>
+                    <input type="tel" name="tel" placeholder="Ваш телефон*" data-phone-input="" required="">
+                </label>
+            </fieldset>
+            <fieldset>
+                <label>
+                    <textarea name="comment" placeholder="Задайте ваш вопрос"></textarea>
+                </label>
+                <label class="checkbox-label">
+                    <input type="checkbox" name="checkbox" required="">
+                    <span>
+                        Даю согласие на обработку персональных данных
+                    </span>
+                </label>
+                <button class="submit-btn plain-btn">
+                    Отправить сообщение
+                </button>
+            </fieldset>
+        </form>
+        <div class="feedback-modal__close">
+            <include src="assets/svg/modal-close.html"></include>
+        </div>
+    </div>
+</div>
+<div class="successful-modal">
+    <div class="successful-modal__inner">
+        <h2>Напишите нам</h2>
+        <p>Спасибо, что написали нам!<br> Мы ответим Вам в ближайшее время.</p>
+        <div class="successful-modal__close">
+            <include src="assets/svg/modal-close.html"></include>
+        </div>
+    </div>
+</div>
 <div class="overlay"></div>

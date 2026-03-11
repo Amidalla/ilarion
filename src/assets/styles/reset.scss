@@ -33,6 +33,24 @@ li {
 .container {
   max-width: 1440px;
   margin: 0 auto;
+
+  @media (max-width: 1550px) {
+    max-width: 1189px;
+  }
+
+  @media (max-width: 1250px) {
+    width: 100%;
+    max-width: 100%;
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+
+  @media (max-width: 730px) {
+    width: 100%;
+    max-width: 100%;
+    padding-left: 16px;
+    padding-right: 16px;
+  }
 }
 
 input[type="number"] {
@@ -64,4 +82,12 @@ h2 {
   font-weight: var(--font-regular);
   font-size: 42px;
   color: #6D6736;
+
+  @media (max-width: 1550px) {
+    font-size: 40px;
+  }
+
+  @media (max-width: 1250px) {
+    font-size: 34px;
+  }
 }
