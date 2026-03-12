@@ -40,7 +40,7 @@ html.modal-open {
     position: relative;
 
     @media (max-width: 600px) {
-      width: 360px;
+      width: 350px;
     }
   }
 
@@ -194,6 +194,10 @@ html.modal-open {
 
   &:hover {
     transform: translateY(-5px);
+
+    @media (max-width: 1250px) {
+      transform: none;
+    }
   }
 }
 

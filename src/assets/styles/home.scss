@@ -268,7 +268,6 @@
   &__wrapper {
     display: flex;
     justify-content: space-between;
-    padding-right: 7px;
     margin-bottom: 40.5px;
   }
 }
@@ -380,6 +379,8 @@
     .download-text {
       font-size: 14px;
       color: #31475E;
+      display: flex;
+      flex-direction: column;
 
       span {
         &:first-child {
@@ -390,11 +391,6 @@
   }
 
   &:hover {
-     .book-card__cover {
-       img {
-         transform: scale(1.03);
-       }
-     }
 
     a {
       .download-text {
@@ -436,6 +432,7 @@
   &__text {
     display: flex;
     flex-direction: column;
+    width: 136px;
 
     span {
       color: #31475E;
@@ -489,12 +486,36 @@
     font-size: 16px;
     color: #31475E;
     line-height: 150%;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
+
 
     @media (max-width: 1250px) {
       font-size: 15px;
+    }
+
+    p {
+      &:not(:has(+ ul)) {
+        &:not(:last-child) {
+          margin-bottom: 15px;
+        }
+      }
+    }
+
+    ul {
+      list-style: none;
+
+      li {
+        position: relative;
+        padding-left: 15px;
+
+        &::before {
+          content: "•";
+          position: absolute;
+          left: 0;
+          top: 0;
+          color: #333;
+          font-size: 18px;
+        }
+      }
     }
   }
 
@@ -647,15 +668,6 @@
     .content-video {
       display: flex;
       align-self: end;
-    }
-
-    .download-text {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .book-card {
-      width: 107px;
     }
 
     .content__wrapper {

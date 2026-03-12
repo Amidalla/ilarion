@@ -7,6 +7,7 @@ import "../styles/modals.scss";
 import "../styles/section.scss";
 import "../styles/contacts.scss";
 import "../styles/photo-album.scss";
+import "../styles/history.scss";
 import LazyLoad from "vanilla-lazyload";
 import Swiper from 'swiper';
 import 'swiper/swiper-bundle.css';

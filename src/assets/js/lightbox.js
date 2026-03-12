@@ -1,7 +1,9 @@
 export class Lightbox {
     constructor() {
         this.currentIndex = 0;
-        this.items = [];
+        this.imageItems = []; // только изображения из активного таба
+        this.videoItems = []; // только видео из блока под табами
+        this.currentType = null; // 'image' или 'video'
         this.isLoading = false;
         this.init();
     }
@@ -16,23 +18,23 @@ export class Lightbox {
     collectItems() {
         const activePane = document.querySelector('.photo-tabs__pane.active');
 
+        // Собираем только изображения из активного таба
         const imageTriggers = activePane ? activePane.querySelectorAll('.lightbox-trigger') : [];
-        const imageItems = Array.from(imageTriggers).map(trigger => ({
+        this.imageItems = Array.from(imageTriggers).map(trigger => ({
             type: 'image',
             src: trigger.getAttribute('href'),
             caption: trigger.dataset.caption || '',
             element: trigger
         }));
 
-        const videoTriggers = document.querySelectorAll('[data-video]');
-        const videoItems = Array.from(videoTriggers).map(trigger => ({
+        // Собираем видео из блока под табами
+        const videoTriggers = document.querySelectorAll('.content-video [data-video]');
+        this.videoItems = Array.from(videoTriggers).map(trigger => ({
             type: 'video',
             src: trigger.getAttribute('href'),
             caption: trigger.dataset.caption || 'Видео',
             element: trigger
         }));
-
-        this.items = [...imageItems, ...videoItems];
     }
 
     createLightboxDOM() {
@@ -89,11 +91,12 @@ export class Lightbox {
                 e.stopPropagation();
                 this.collectItems();
 
-                const imageIndex = this.items.findIndex(item =>
-                    item.type === 'image' && item.element === imageTrigger
+                const imageIndex = this.imageItems.findIndex(item =>
+                    item.element === imageTrigger
                 );
 
                 if (imageIndex !== -1) {
+                    this.currentType = 'image';
                     this.currentIndex = imageIndex;
                     this.open();
                 }
@@ -106,11 +109,12 @@ export class Lightbox {
                 e.stopPropagation();
                 this.collectItems();
 
-                const videoIndex = this.items.findIndex(item =>
-                    item.type === 'video' && item.element === videoTrigger
+                const videoIndex = this.videoItems.findIndex(item =>
+                    item.element === videoTrigger
                 );
 
                 if (videoIndex !== -1) {
+                    this.currentType = 'video';
                     this.currentIndex = videoIndex;
                     this.open();
                 }
@@ -134,23 +138,22 @@ export class Lightbox {
 
         this.prevBtn.addEventListener('click', (e) => {
             e.stopPropagation();
-            if (this.items[this.currentIndex]?.type === 'image') {
-                this.navigate('prev');
+            if (this.currentType === 'image') {
+                this.navigateImage('prev');
             }
         });
 
         this.nextBtn.addEventListener('click', (e) => {
             e.stopPropagation();
-            if (this.items[this.currentIndex]?.type === 'image') {
-                this.navigate('next');
+            if (this.currentType === 'image') {
+                this.navigateImage('next');
             }
         });
 
         document.addEventListener('keydown', (e) => {
             if (!this.lightbox.classList.contains('active')) return;
 
-            const currentItem = this.items[this.currentIndex];
-            if (!currentItem || currentItem.type !== 'image') return;
+            if (this.currentType !== 'image') return;
 
             if (e.key === 'Escape') {
                 e.preventDefault();
@@ -158,11 +161,11 @@ export class Lightbox {
             }
             if (e.key === 'ArrowLeft') {
                 e.preventDefault();
-                this.navigate('prev');
+                this.navigateImage('prev');
             }
             if (e.key === 'ArrowRight') {
                 e.preventDefault();
-                this.navigate('next');
+                this.navigateImage('next');
             }
         });
     }
@@ -186,46 +189,24 @@ export class Lightbox {
         this.videoWrapper.style.display = 'none';
     }
 
-    navigate(direction) {
-        if (this.isLoading || this.items.length === 0) return;
-
-        const currentItem = this.items[this.currentIndex];
-        if (currentItem.type !== 'image') return;
+    navigateImage(direction) {
+        if (this.isLoading || this.imageItems.length === 0) return;
 
         this.isLoading = true;
-
-        const oldIndex = this.currentIndex;
 
         if (direction === 'prev') {
             this.currentIndex--;
             if (this.currentIndex < 0) {
-                this.currentIndex = this.items.length - 1;
+                this.currentIndex = this.imageItems.length - 1;
             }
         } else {
             this.currentIndex++;
-            if (this.currentIndex >= this.items.length) {
+            if (this.currentIndex >= this.imageItems.length) {
                 this.currentIndex = 0;
             }
         }
 
-        const nextItem = this.items[this.currentIndex];
-        if (nextItem.type === 'video') {
-            if (direction === 'prev') {
-                this.currentIndex--;
-                if (this.currentIndex < 0) {
-                    this.currentIndex = this.items.length - 1;
-                }
-            } else {
-                this.currentIndex++;
-                if (this.currentIndex >= this.items.length) {
-                    this.currentIndex = 0;
-                }
-            }
-        }
-
-        if (oldIndex !== this.currentIndex) {
-            this.updateMedia();
-        }
+        this.updateMedia();
 
         setTimeout(() => {
             this.isLoading = false;
@@ -233,12 +214,16 @@ export class Lightbox {
     }
 
     updateMedia() {
-        if (this.items.length === 0) return;
+        if (this.currentType === 'image' && this.imageItems.length === 0) return;
+        if (this.currentType === 'video' && this.videoItems.length === 0) return;
 
-        const item = this.items[this.currentIndex];
+        const item = this.currentType === 'image'
+            ? this.imageItems[this.currentIndex]
+            : this.videoItems[this.currentIndex];
+
         this.captionEl.textContent = item.caption;
 
-        if (item.type === 'image') {
+        if (this.currentType === 'image') {
             this.prevBtn.style.display = 'flex';
             this.nextBtn.style.display = 'flex';
         } else {
@@ -248,12 +233,17 @@ export class Lightbox {
 
         this.cleanupMedia();
 
-        if (item.type === 'image') {
+        if (this.currentType === 'image') {
             this.image.style.display = 'block';
             this.image.src = item.src;
 
             this.image.onerror = () => {
                 this.captionEl.textContent = item.caption + ' (ошибка загрузки)';
+            };
+
+            this.image.onload = () => {
+
+                this.isLoading = false;
             };
         } else {
             this.videoWrapper.style.display = 'block';
@@ -265,13 +255,22 @@ export class Lightbox {
                 video.autoplay = false;
                 video.preload = 'metadata';
 
+
                 video.onloadeddata = () => {
                     this.isLoading = false;
+
+                    if (this.captionEl.textContent.includes('ошибка')) {
+                        this.captionEl.textContent = item.caption;
+                    }
                 };
 
-                video.onerror = () => {
-                    this.captionEl.textContent = item.caption + ' (ошибка загрузки)';
-                    this.isLoading = false;
+                video.onerror = (e) => {
+                    // Проверяем, действительно ли это ошибка
+                    if (video.networkState === video.NETWORK_NO_SOURCE ||
+                        video.error) {
+                        this.captionEl.textContent = item.caption + ' (ошибка загрузки)';
+                        this.isLoading = false;
+                    }
                 };
 
                 const source = document.createElement('source');

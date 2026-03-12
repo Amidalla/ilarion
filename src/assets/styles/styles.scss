@@ -18,7 +18,7 @@
 
 html,
 body {
-  font-family: var( --font-montserrat);
+  font-family: var(--font-montserrat);
   font-weight: var(--font-regular);
 }
 
@@ -46,10 +46,6 @@ main {
   background: #000;
   border-radius: 10px;
   overflow: hidden;
-
-  @media (max-width: 768px) {
-    width: 95vw;
-  }
 }
 
 .lightbox__video {
@@ -67,5 +63,25 @@ main {
   video {
     max-height: 80vh;
     object-fit: contain;
+  }
+}
+
+.inside-page h1 {
+  font-family: var( --font-ponomar);
+  font-weight: var(--font-regular);
+  font-size: 42px;
+  color: #6D6736;
+  line-height: 120%;
+
+  @media (max-width: 1550px) {
+    font-size: 40px;
+  }
+
+  @media (max-width: 1250px) {
+    font-size: 34px;
+  }
+
+  @media (max-width: 730px) {
+    font-size: 30px;
   }
 }

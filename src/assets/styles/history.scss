@@ -1,0 +1,47 @@
+@use "../styles/mixins.scss" as *;
+
+.history {
+  &__inner {
+    display: grid;
+    grid-template-columns: 30px 1fr;
+    gap: 8px;
+  }
+
+  &__item {
+    &:first-child {
+      background: url("../images/history-img.svg") no-repeat center;
+      background-size: contain;
+    }
+  }
+
+  &__wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  &__block {
+    max-width: 547px;
+  }
+
+  &__year {
+    color: #6D6736;
+    font-size: 42px;
+    font-family: var(--font-ponomar);
+    font-weight: var(--font-regular);
+
+    @media (max-width: 1250px) {
+      font-size: 32px;
+    }
+  }
+
+  &__text {
+    color: #31475E;
+    font-size: 16px;
+    line-height: 150%;
+
+    @media (max-width: 1250px) {
+      font-size: 15px;
+    }
+  }
+}
