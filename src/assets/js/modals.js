@@ -49,7 +49,11 @@ export function initMobileMenu() {
         disableBodyScroll();
 
         mobileNav.classList.add('active');
-        overlay.classList.add('active');
+        
+        if (window.innerWidth > 450) {
+            overlay.classList.add('active');
+        }
+
         burgerBtn.classList.add('is-open');
         isMenuOpen = true;
     }
@@ -99,6 +103,12 @@ export function initMobileMenu() {
                     document.documentElement.style.paddingRight = '';
                 }
             }
+            
+            if (window.innerWidth <= 450) {
+                overlay.classList.remove('active');
+            } else {
+                overlay.classList.add('active');
+            }
         }
     });
 
@@ -109,7 +119,7 @@ export function initMobileMenu() {
     };
 }
 
-export function initFeedbackModal() {
+export function initFeedbackModal(menuController) {
     const modal = document.querySelector('.feedback-modal');
     const footerButtons = document.querySelectorAll('.footer__btn .border-btn');
     const mobileMenuButton = document.querySelector('.mobile-nav .plain-btn');
@@ -152,6 +162,11 @@ export function initFeedbackModal() {
     }
 
     function openModal() {
+      
+        if (menuController && menuController.isOpen()) {
+            menuController.close();
+        }
+
         disableBodyScroll();
 
         modal.classList.add('active');

@@ -92,11 +92,13 @@
       grid-template-columns: minmax(auto, 341px) 1fr;
       gap: 30px;
       margin-bottom: 15px;
+      align-items: start;
 
-      @media (max-width: 1250px) {
+      @media (max-width: 1550px) {
         display: flex;
         flex-direction: column;
         gap: 15px;
+        align-items: start;
 
         img {
           max-width: 341px;

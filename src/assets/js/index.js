@@ -18,7 +18,59 @@ import { initFeedbackModal, initMobileMenu } from './modals.js';
 import { initPhotoTabs } from './tabs.js';
 import { initLightbox } from './lightbox.js';
 
+import homeBg from '../images/home-bg.png';
+import homeBgLaptop from '../images/home-bg-laptop.png';
+import homeBgTablet from '../images/home-bg-tablet.png';
+import homeBgMobile from '../images/home-bg-mobile.png';
+
 Swiper.use([Pagination, Navigation, Autoplay, Thumbs, EffectFade]);
+
+function initFixedBackground() {
+    const homePage = document.querySelector('.home-page');
+    if (!homePage) return;
+
+    const oldBgElement = document.querySelector('.fixed-bg-element');
+    if (oldBgElement) {
+        oldBgElement.remove();
+    }
+
+    const bgElement = document.createElement('div');
+    bgElement.className = 'fixed-bg-element';
+    homePage.parentNode.insertBefore(bgElement, homePage);
+
+    function updateBackground() {
+        const width = window.innerWidth;
+
+        bgElement.style.position = 'fixed';
+        bgElement.style.top = '0';
+        bgElement.style.left = '0';
+        bgElement.style.right = '0';
+        bgElement.style.bottom = '0';
+        bgElement.style.backgroundRepeat = 'no-repeat';
+        bgElement.style.backgroundPosition = 'top center';
+        bgElement.style.zIndex = '0';
+        bgElement.style.pointerEvents = 'none';
+        bgElement.style.transform = 'none';
+
+
+        if (width <= 730) {
+            bgElement.style.backgroundImage = `url(${homeBgMobile})`;
+            bgElement.style.backgroundSize = 'cover';
+        } else if (width <= 1250) {
+            bgElement.style.backgroundImage = `url(${homeBgTablet})`;
+            bgElement.style.backgroundSize = '100% auto';
+        } else if (width <= 1550) {
+            bgElement.style.backgroundImage = `url(${homeBgLaptop})`;
+            bgElement.style.backgroundSize = '100% auto';
+        } else {
+            bgElement.style.backgroundImage = `url(${homeBg})`;
+            bgElement.style.backgroundSize = '100% auto';
+        }
+    }
+
+    updateBackground();
+    window.addEventListener('resize', updateBackground);
+}
 
 function initPhoneMasks() {
     const phoneInputs = document.querySelectorAll(`
@@ -68,16 +120,13 @@ function initPhoneMasks() {
 
 document.addEventListener('DOMContentLoaded', function() {
     const lazyLoadInstance = new LazyLoad();
-
     initPhoneMasks();
 
-    initMobileMenu();
-
-    initFeedbackModal();
+    const menuController = initMobileMenu();
+    initFeedbackModal(menuController);
 
     SlidersInit();
-
     initPhotoTabs();
-
     initLightbox();
+    initFixedBackground();
 });

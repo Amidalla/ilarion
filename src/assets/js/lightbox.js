@@ -1,10 +1,13 @@
 export class Lightbox {
     constructor() {
         this.currentIndex = 0;
-        this.imageItems = []; // только изображения из активного таба
-        this.videoItems = []; // только видео из блока под табами
-        this.currentType = null; // 'image' или 'video'
+        this.imageItems = [];
+        this.videoItems = [];
+        this.currentType = null;
         this.isLoading = false;
+        this.touchStartX = 0;
+        this.touchEndX = 0;
+        this.minSwipeDistance = 50;
         this.init();
     }
 
@@ -13,12 +16,43 @@ export class Lightbox {
         this.createLightboxDOM();
         this.bindTriggers();
         this.initTabsObserver();
+        this.addGlobalStyles();
+    }
+
+    addGlobalStyles() {
+        const styleId = 'lightbox-global-fix';
+        if (!document.getElementById(styleId)) {
+            const style = document.createElement('style');
+            style.id = styleId;
+            style.textContent = `
+                .custom-lightbox .lightbox__video-wrapper {
+                    width: 100%;
+                    height: 100%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    background: #000;
+                }
+                
+                .custom-lightbox .lightbox__video-wrapper video,
+                .custom-lightbox .lightbox__video-wrapper iframe {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: contain;
+                }
+                
+                .custom-lightbox .lightbox__image {
+                    touch-action: pan-y pinch-zoom;
+                    -webkit-tap-highlight-color: transparent;
+                }
+            `;
+            document.head.appendChild(style);
+        }
     }
 
     collectItems() {
         const activePane = document.querySelector('.photo-tabs__pane.active');
 
-        // Собираем только изображения из активного таба
         const imageTriggers = activePane ? activePane.querySelectorAll('.lightbox-trigger') : [];
         this.imageItems = Array.from(imageTriggers).map(trigger => ({
             type: 'image',
@@ -27,7 +61,6 @@ export class Lightbox {
             element: trigger
         }));
 
-        // Собираем видео из блока под табами
         const videoTriggers = document.querySelectorAll('.content-video [data-video]');
         this.videoItems = Array.from(videoTriggers).map(trigger => ({
             type: 'video',
@@ -81,6 +114,32 @@ export class Lightbox {
         this.nextBtn = this.lightbox.querySelector('.lightbox__nav--next');
 
         this.bindLightboxEvents();
+        this.bindTouchEvents();
+    }
+
+    bindTouchEvents() {
+        this.image.addEventListener('touchstart', (e) => {
+            if (this.currentType !== 'image') return;
+            this.touchStartX = e.changedTouches[0].screenX;
+        }, { passive: true });
+
+        this.image.addEventListener('touchend', (e) => {
+            if (this.currentType !== 'image') return;
+            this.touchEndX = e.changedTouches[0].screenX;
+            this.handleSwipe();
+        }, { passive: true });
+    }
+
+    handleSwipe() {
+        const swipeDistance = this.touchEndX - this.touchStartX;
+
+        if (Math.abs(swipeDistance) < this.minSwipeDistance) return;
+
+        if (swipeDistance > 0) {
+            this.navigateImage('prev');
+        } else {
+            this.navigateImage('next');
+        }
     }
 
     bindTriggers() {
@@ -152,7 +211,6 @@ export class Lightbox {
 
         document.addEventListener('keydown', (e) => {
             if (!this.lightbox.classList.contains('active')) return;
-
             if (this.currentType !== 'image') return;
 
             if (e.key === 'Escape') {
@@ -171,6 +229,7 @@ export class Lightbox {
     }
 
     open() {
+        this.isLoading = false;
         this.updateMedia();
         this.lightbox.classList.add('active');
         document.body.style.overflow = 'hidden';
@@ -180,6 +239,7 @@ export class Lightbox {
         this.lightbox.classList.remove('active');
         document.body.style.overflow = '';
         this.cleanupMedia();
+        this.isLoading = false;
     }
 
     cleanupMedia() {
@@ -187,6 +247,8 @@ export class Lightbox {
         this.image.style.display = 'none';
         this.videoWrapper.innerHTML = '';
         this.videoWrapper.style.display = 'none';
+        this.image.onload = null;
+        this.image.onerror = null;
     }
 
     navigateImage(direction) {
@@ -207,10 +269,6 @@ export class Lightbox {
         }
 
         this.updateMedia();
-
-        setTimeout(() => {
-            this.isLoading = false;
-        }, 300);
     }
 
     updateMedia() {
@@ -224,8 +282,14 @@ export class Lightbox {
         this.captionEl.textContent = item.caption;
 
         if (this.currentType === 'image') {
-            this.prevBtn.style.display = 'flex';
-            this.nextBtn.style.display = 'flex';
+            // Показываем стрелки только если изображений больше одного
+            if (this.imageItems.length > 1) {
+                this.prevBtn.style.display = 'flex';
+                this.nextBtn.style.display = 'flex';
+            } else {
+                this.prevBtn.style.display = 'none';
+                this.nextBtn.style.display = 'none';
+            }
         } else {
             this.prevBtn.style.display = 'none';
             this.nextBtn.style.display = 'none';
@@ -237,12 +301,12 @@ export class Lightbox {
             this.image.style.display = 'block';
             this.image.src = item.src;
 
-            this.image.onerror = () => {
-                this.captionEl.textContent = item.caption + ' (ошибка загрузки)';
+            this.image.onload = () => {
+                this.isLoading = false;
             };
 
-            this.image.onload = () => {
-
+            this.image.onerror = () => {
+                this.captionEl.textContent = item.caption + ' (ошибка загрузки)';
                 this.isLoading = false;
             };
         } else {
@@ -255,23 +319,10 @@ export class Lightbox {
                 video.autoplay = false;
                 video.preload = 'metadata';
 
-
-                video.onloadeddata = () => {
-                    this.isLoading = false;
-
-                    if (this.captionEl.textContent.includes('ошибка')) {
-                        this.captionEl.textContent = item.caption;
-                    }
-                };
-
-                video.onerror = (e) => {
-                    // Проверяем, действительно ли это ошибка
-                    if (video.networkState === video.NETWORK_NO_SOURCE ||
-                        video.error) {
-                        this.captionEl.textContent = item.caption + ' (ошибка загрузки)';
-                        this.isLoading = false;
-                    }
-                };
+                video.style.position = 'absolute';
+                video.style.visibility = 'hidden';
+                video.style.opacity = '0';
+                video.style.pointerEvents = 'none';
 
                 const source = document.createElement('source');
                 source.src = item.src;
@@ -281,6 +332,28 @@ export class Lightbox {
                 video.appendChild(document.createTextNode('Ваш браузер не поддерживает видео.'));
 
                 this.videoWrapper.appendChild(video);
+
+                video.onloadedmetadata = () => {
+                    video.style.position = 'relative';
+                    video.style.visibility = 'visible';
+                    video.style.opacity = '1';
+                    video.style.pointerEvents = 'auto';
+
+                    this.isLoading = false;
+
+                    if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+                        video.currentTime = 0.1;
+                    }
+                };
+
+                video.onerror = () => {
+                    video.style.position = 'relative';
+                    video.style.visibility = 'visible';
+                    video.style.opacity = '1';
+                    video.style.pointerEvents = 'auto';
+                    this.captionEl.textContent = item.caption + ' (ошибка загрузки)';
+                    this.isLoading = false;
+                };
             } else {
                 let videoUrl = item.src;
 
@@ -310,11 +383,25 @@ export class Lightbox {
                 iframe.allow = 'fullscreen; picture-in-picture';
                 iframe.allowFullscreen = true;
 
+                iframe.style.position = 'absolute';
+                iframe.style.visibility = 'hidden';
+                iframe.style.opacity = '0';
+                iframe.style.pointerEvents = 'none';
+
                 iframe.onload = () => {
+                    iframe.style.position = 'relative';
+                    iframe.style.visibility = 'visible';
+                    iframe.style.opacity = '1';
+                    iframe.style.pointerEvents = 'auto';
+                    this.captionEl.textContent = item.caption;
                     this.isLoading = false;
                 };
 
                 iframe.onerror = () => {
+                    iframe.style.position = 'relative';
+                    iframe.style.visibility = 'visible';
+                    iframe.style.opacity = '1';
+                    iframe.style.pointerEvents = 'auto';
                     this.captionEl.textContent = item.caption + ' (ошибка загрузки)';
                     this.isLoading = false;
                 };

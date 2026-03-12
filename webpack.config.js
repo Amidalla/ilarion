@@ -5,6 +5,7 @@ const pages = fs.readdirSync(path.resolve(__dirname, 'src')).filter(fileName => 
 const postHtmlInclude = require('posthtml-include');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = (env, argv) => {
     const isProduction = argv.mode === 'production';
@@ -90,7 +91,7 @@ module.exports = (env, argv) => {
                     test: /\.(mp4|webm|ogg)$/i,
                     type: "asset/resource",
                     generator: {
-                        filename: 'video/[name][ext]'
+                        filename: 'assets/video/[name][ext]'
                     }
                 }
             ],
@@ -118,6 +119,14 @@ module.exports = (env, argv) => {
                         windows: true
                     }
                 }
+            }),
+            new CopyWebpackPlugin({
+                patterns: [
+                    {
+                        from: path.resolve(__dirname, 'src/assets/video'),
+                        to: path.resolve(__dirname, 'dist/assets/video')
+                    }
+                ]
             }),
             ...pages.map(page => new HtmlWebpackPlugin({
                 template: path.join(__dirname, 'src', page),

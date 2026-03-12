@@ -1,21 +1,12 @@
 @use "../styles/mixins.scss" as *;
 
 .home-page {
-  background-color: #fff;
-  background-image: url('../images/home-bg.png');
-  background-repeat: no-repeat;
-  background-position: top center;
-  background-attachment: fixed;
-  background-size: 100% auto;
+  position: relative;
+  background-color: transparent;
   padding-top: 85px;
+  z-index: 2;
 
   @media (max-width: 1550px) {
-    background-color: #fff;
-    background-image: url("../images/home-bg-laptop.png");
-    background-repeat: no-repeat;
-    background-position: top center;
-    background-attachment: fixed;
-    background-size: 100% auto;
     padding-top: 55px;
   }
 
@@ -23,28 +14,69 @@
     padding-top: 20px;
   }
 
-  @media (max-width: 1250px) {
-    background-color: #fff;
-    background-image: url("../images/home-bg-tablet.png");
-    background-repeat: no-repeat;
-    background-position: top center;
-    background-attachment: fixed;
-    background-size: 100% auto;
-  }
-
   @media (max-width: 768px) {
     padding-top: 12px;
   }
+}
 
-  @media (max-width: 730px) {
-    background-color: #fff;
-    background-image: url("../images/home-bg-mobile.png");
+
+
+.fixed-bg-element {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-repeat: no-repeat;
+  background-position: top center;
+  z-index: 1;
+  pointer-events: none;
+
+
+  background-color: #fff;
+}
+
+.no-js .home-page {
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     background-repeat: no-repeat;
     background-position: top center;
-    background-attachment: fixed;
-    background-size: cover;
+    z-index: -1;
+    pointer-events: none;
   }
 
+  @media (max-width: 730px) {
+    &::before {
+      background-image: url("../images/home-bg-mobile.png");
+      background-size: cover;
+    }
+  }
+
+  @media (min-width: 731px) and (max-width: 1250px) {
+    &::before {
+      background-image: url("../images/home-bg-tablet.png");
+      background-size: 100% auto;
+    }
+  }
+
+  @media (min-width: 1251px) and (max-width: 1550px) {
+    &::before {
+      background-image: url("../images/home-bg-laptop.png");
+      background-size: 100% auto;
+    }
+  }
+
+  @media (min-width: 1551px) {
+    &::before {
+      background-image: url("../images/home-bg.png");
+      background-size: 100% auto;
+    }
+  }
 }
 
 .hero {
@@ -517,6 +549,10 @@
         }
       }
     }
+
+    .quote:not(.title-quote) + p {
+      margin-top: 15px;
+    }
   }
 
   &__media {
@@ -681,4 +717,31 @@
   .quote {
     margin-bottom: 0;
   }
+}
+
+.fixed-bg-element {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-repeat: no-repeat;
+  background-position: top center;
+  z-index: -1;
+  pointer-events: none;
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+.home-page::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-repeat: no-repeat;
+  background-position: top center;
+  z-index: -1;
+  pointer-events: none;
 }

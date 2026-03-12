@@ -9,6 +9,8 @@
   padding-top: 30px;
   padding-bottom: 41px;
   height: 611px;
+  position: relative;
+  z-index: 2;
 
   @media (max-width: 1250px) {
     background-position: bottom 13px right 22.5px;
