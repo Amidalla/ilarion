@@ -38,6 +38,10 @@ html.modal-open {
     background: var(--background-wight, #FFF);
     box-shadow: 0 4px 27.9px 0 #DEDEDE;
     position: relative;
+
+    @media (max-width: 600px) {
+      width: 360px;
+    }
   }
 
   &__close {

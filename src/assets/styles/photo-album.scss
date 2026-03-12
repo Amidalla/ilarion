@@ -72,7 +72,7 @@
     gap: 9px;
     border-radius: var(--radius-radius-button, 7px);
     background: var(--colors-buttonBlue, #265281);
-    border-color: var(--colors-buttonBlue, #265281);
+    border: 1px solid #265281;
     color: #fff;
     cursor: pointer;
     font-family: inherit;
@@ -91,6 +91,7 @@
     &:hover:not(.active) {
       background: rgba(151, 121, 57, 0.1);
       color: var(--colors-buttonLabel-secondary, #31475E);
+      border: 1px solid transparent;
     }
 
     .photo-tabs__ripple {
