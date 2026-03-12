@@ -2,29 +2,115 @@
 <html lang="ru">
 <include src="layout/head.html"></include>
 <body>
-<include src="layout/header.html"></include>
-<main class="home-page">
-    <section class="hero">
-        <div class="container">
-            <div class="hero__inner">
-                <div class="hero__info">
-                    <div class="hero__title">
-                        <h1>
-                            <span>Московская Патриархия.</span>
-                            <span>Псковская Епархия.</span>
-                            <span class="hero__name">Церковь Покрова Божией Матери</span>
-                            <span>д. Озера, Гдовский район</span>
-                        </h1>
-                    </div>
-                    <p>Под спудом церкви покоятся мощи преподобного Илариона Гдовского</p>
+<header class="header">
+    <div class="container">
+        <div class="header__inner">
+            <div class="header__logo">
+                <a href="#"><include src="assets/svg/logo.html"></include></a>
+            </div>
+            <div class="header__info">
+                <span>Московская Патриархия. Псковская Епархия.</span>
+                <span>Церковь Покрова Божией Матери</span>
+                <span>д. Озера, Гдовский район</span>
+            </div>
+            <nav class="header__navigation">
+                <ul class="header__list">
+                    <li>
+                        <a href="#">Главная</a>
+                    </li>
+                    <li>
+                        <a href="#">Фотоальбом</a>
+                    </li>
+                    <li>
+                        <a href="#">Видео</a>
+                    </li>
+                    <li class="active">
+                        <a href="#">Контакты</a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="header__contacts">
+                <div class="header__mail">
+                    <include src="assets/svg/mail.html"></include>
+                    <a href="#">Напишите нам</a>
                 </div>
-                <div class="hero__media">
-                    <img class="lazy" data-src="assets/images/hero-img.png" alt="">
+                <div class="header__phone">
+                    <include src="assets/svg/header-phone.html"></include>
+                    <a href="tel:+79212191012">+7 921 219-10-12</a>
                 </div>
             </div>
+            <button class="burger-menu" aria-label="Меню">
+                <span class="burger-menu__line"></span>
+                <span class="burger-menu__line"></span>
+                <span class="burger-menu__line"></span>
+            </button>
         </div>
-    </section>
-    <section class="content">
+    </div>
+</header>
+<div class="mobile-nav">
+    <div class="mobile-nav__inner">
+        <div class="decor-item">
+            <include src="assets/svg/decor.html"></include>
+        </div>
+        <ul class="mobile-menu">
+            <li>
+                <a href="#">Пустынножительство</a>
+            </li>
+            <li>
+                <a href="#">Прп. Иларион Гдовский и&nbsp;церковь Покрова Божией Матери&nbsp;д.&nbsp;Озера</a>
+                <ul class="sub-menu">
+                    <li>
+                        <a href="#">Прп&nbsp;Иларион и&nbsp;основанный им&nbsp;на&nbsp;реке Желче монастырь</a>
+                    </li>
+                    <li>
+                        <a href="#">Церковь Покрова Божией Матери после&nbsp;закрытия монастыря</a>
+                    </li>
+                    <li>
+                        <a href="#">Мерзость запустения</a>
+                    </li>
+                    <li>
+                        <a href="#">Часовня памяти&nbsp;прп. Илариона Гдовского</a>
+                    </li>
+                    <li>
+                        <a href="#">Современность</a>
+                    </li>
+                    <li>
+                        <a href="#">Вехи истории</a>
+                    </li>
+                    <li>
+                        <a href="#">Обращение к&nbsp;паломникам</a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">Протоиерей Николай Гурьянов</a>
+                <ul class="sub-menu">
+                    <li>
+                        <a href="#">Благословение</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="page-link">
+                <a href="#">Главная</a>
+            </li>
+            <li class="page-link">
+                <a href="#">Фотоальбом</a>
+            </li>
+            <li class="page-link">
+                <a href="#">Видео</a>
+            </li>
+            <li class="page-link">
+                <a href="#">Контакты</a>
+            </li>
+        </ul>
+        <button class="plain-btn">
+            <include src="assets/svg/button-icon.html"></include>
+            <span>Напишите нам</span>
+        </button>
+    </div>
+</div>
+<main>
+    <section class="content inside-page">
         <div class="container">
             <div class="content__inner">
                 <div class="content__item">
@@ -104,93 +190,72 @@
                             </a>
                         </article>
                     </div>
-                   <div class="content-video">
-                      <a href="assets/video/video.mp4"
-                         class="content-video__item"
-                         data-video
-                         data-caption="Название видео 1">
+                    <div class="content-video">
+                        <a href="assets/video/video.mp4"
+                           class="content-video__item"
+                           data-video
+                           data-caption="Название видео 1">
                             <span class="content-video__icon">
                                <include src="assets/svg/video-icon.html"></include>
                             </span>
-                         <span class="content-video__text">
+                            <span class="content-video__text">
                             <span>Название видео 1</span>
                             <span>смотреть</span>
                          </span>
-                      </a>
+                        </a>
 
-                      <a href="assets/video/video.mp4"
-                         class="content-video__item"
-                         data-video
-                         data-caption="Название видео 2">
+                        <a href="assets/video/video.mp4"
+                           class="content-video__item"
+                           data-video
+                           data-caption="Название видео 2">
                         <span class="content-video__icon">
                             <include src="assets/svg/video-icon.html"></include>
                         </span>
-                         <span class="content-video__text">
+                            <span class="content-video__text">
                             <span>Название видео 2</span>
                             <span>смотреть</span>
                          </span>
-                      </a>
-                   </div>
+                        </a>
+                    </div>
                 </div>
                 <div class="content__item">
-                    <h2>Церковь Покрова Божией Матери</h2>
-                    <div class="main-content">
+                    <div class="breadcrumb">
+                        <nav class="breadcrumb__inner">
+                            <ul class="breadcrumb__list">
+                                <li class="breadcrumb__item">
+                                    <a href="#" class="breadcrumb__link">Главная</a>
+                                </li>
+                                <li class="breadcrumb__item active">
+                                    <span>Контакты</span>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                    <h2>Контакты</h2>
+                    <div class="main-content section-content">
                         <div class="main-content__inner">
-                            <div class="main-content__text">
-                                <p>На сайте представлена история церкви Покрова Божией Матери деревни Озера Гдовского
-                                    района Псковской области — от основания в XV веке учеником преподобного Евфросина
-                                    Псковского преподобным Иларионом Гдовским монастыря до закрытия церкви, ставшей
-                                    к тому
-                                    времени приходской, в 1937 году.</p>
-                                <p>В 90-е годы ХХ столетия по благословению архиепископа Псковского и Великолукского
-                                    Евсевия, а также по молитвам и с благословения старца протоиерея Николая Гурьянова
-                                    священник Евгений Михайлов восстанавливает полуразрушенный храм, и верующие вновь
-                                    имеют
-                                    возможность помолиться у мощей преподобного Илариона Гдовского.</p>
-                                <p>Во Псковской области, в Гдовском районе, в деревне Озера есть церковь Покрова
-                                    Божией Матери. Она стоит на реке Желче, на полуострове, окружённом лесами
-                                    и болотами. Чтобы посетить этот храм, нужно переправиться с деревенского
-                                    берега через реку Желчу на лодке или пароме. У современного человека,
-                                    созерцающего эту картину, возникает много вопросов. Кто и зачем построил церковь
-                                    в столь недоступном месте? Почему в такой удалённости от больших населённых
-                                    пунктов? Какой в этом смысл?</p>
-                            </div>
-                            <div class="main-content__media">
-                                <img class="lazy" data-src="assets/images/main-content-img.jpg" alt="">
-                            </div>
-                        </div>
-                        <div class="quote">
-                            <div class="decor-item">
-                                <include src="assets/svg/decor.html"></include>
-                            </div>
-                            <blockquote>
-                                У каждого храма своя история. А история каменной церкви Покрова Богородицы, построенной
-                                в ХIХ веке, имеет свою предысторию в веке XV и повествует о преподобном Иларионе
-                                Гдовском. Он явился основателем пустынножительства в этом лесном краю, затем стал
-                                игуменом монастыря, на территории которого был построен первый, деревянный, храм
-                                Покрова Божией Матери, ставший в ХVIII веке приходским.
-                            </blockquote>
-                        </div>
-                        <div class="events">
-                            <div class="events__item">
-                                <div class="events__media">
-                                    <img class="lazy" data-src="assets/images/events-media.jpg" alt="">
-                                </div>
-                                <div class="events__text">
-                                    <div class="decor-item">
-                                        <include src="assets/svg/decor.html"></include>
+                            <div class="contacts">
+                                <div class="contacts__inner">
+                                    <div class="contacts__item">
+                                        <div class="contacts__wrapper">
+                                            <p class="contacts__title">Адрес:</p>
+                                            <p class="contacts__content">181637, Псковская область, Гдовский район, по Ямм, дер. Озера, церковь Покрова Божией Матери, свящ. Евгению Михайлову.</p>
+                                        </div>
+                                        <div class="contacts__wrapper">
+                                            <p class="contacts__title">Год постройки церкви:</p>
+                                            <p class="contacts__content">1871</p>
+                                        </div>
+                                        <div class="contacts__wrapper">
+                                            <p class="contacts__title">Престолы:</p>
+                                            <p class="contacts__content">Покрова Божией Матери, Рождества Христова.</p>
+                                        </div>
                                     </div>
-                                    <p>Празднование памяти прп. Илариона Гдовского: 10 апреля и 3 ноября (по новому
-                                        стилю).</p>
-                                </div>
-                            </div>
-                            <div class="events__item">
-                                <div class="events__text">
-                                    <div class="decor-item">
-                                        <include src="assets/svg/decor.html"></include>
+                                    <div class="contacts__item">
+                                        <img class="lazy" data-src="assets/images/contacts-img.jpg" alt="">
                                     </div>
-                                    <p>2026 год – 550 лет памяти преподобного Илариона Псковоезерского, Гдовского (почил
-                                        10 апреля 1476 года)</p>
+                                </div>
+                                <div class="contacts__map">
+                                    <iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3A372f3b3db030a00f1a4b83279f63d0ef6a2828dfed1275ed1605d4c89e813d53&amp;source=constructor" width="1046" height="450" frameborder="0"></iframe>
                                 </div>
                             </div>
                         </div>
@@ -258,6 +323,7 @@
             </div>
         </div>
     </section>
+
 </main>
 <include src="layout/footer.html"></include>
 <include src="layout/modals.html"></include>

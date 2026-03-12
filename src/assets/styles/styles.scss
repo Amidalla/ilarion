@@ -39,3 +39,33 @@ main {
   z-index: 1;
 }
 
+.lightbox__video-wrapper {
+  position: relative;
+  width: 80vw;
+  max-width: 1000px;
+  background: #000;
+  border-radius: 10px;
+  overflow: hidden;
+
+  @media (max-width: 768px) {
+    width: 95vw;
+  }
+}
+
+.lightbox__video {
+  width: 100%;
+  height: auto;
+  display: block;
+  border: none;
+
+
+  iframe {
+    aspect-ratio: 16/9;
+    height: auto;
+  }
+
+  video {
+    max-height: 80vh;
+    object-fit: contain;
+  }
+}

@@ -107,6 +107,11 @@
           text-decoration: underline;
         }
       }
+      &.active {
+        a {
+          color: #FFFFFF;
+        }
+      }
     }
   }
 
@@ -120,14 +125,15 @@
   }
 
   &__mail {
-    display: flex;
-    align-items: center;
+
 
     @media (max-width: 1250px) {
       display: none;
     }
 
     a {
+      display: flex;
+      align-items: center;
       font-size: 16px;
       color: #FAF4C3;
 
@@ -145,10 +151,10 @@
   }
 
   &__phone {
-    display: flex;
-    align-items: center;
 
     a {
+      display: flex;
+      align-items: center;
       font-size: 16px;
       color: #FAF4C3;
 

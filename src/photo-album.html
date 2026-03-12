@@ -1,0 +1,432 @@
+<!doctype html>
+<html lang="ru">
+<include src="layout/head.html"></include>
+<body>
+<header class="header">
+    <div class="container">
+        <div class="header__inner">
+            <div class="header__logo">
+                <a href="#"><include src="assets/svg/logo.html"></include></a>
+            </div>
+            <div class="header__info">
+                <span>Московская Патриархия. Псковская Епархия.</span>
+                <span>Церковь Покрова Божией Матери</span>
+                <span>д. Озера, Гдовский район</span>
+            </div>
+            <nav class="header__navigation">
+                <ul class="header__list">
+                    <li>
+                        <a href="#">Главная</a>
+                    </li>
+                    <li class="active">
+                        <a href="#">Фотоальбом</a>
+                    </li>
+                    <li>
+                        <a href="#">Видео</a>
+                    </li>
+                    <li>
+                        <a href="#">Контакты</a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="header__contacts">
+                <div class="header__mail">
+                    <include src="assets/svg/mail.html"></include>
+                    <a href="#">Напишите нам</a>
+                </div>
+                <div class="header__phone">
+                    <include src="assets/svg/header-phone.html"></include>
+                    <a href="tel:+79212191012">+7 921 219-10-12</a>
+                </div>
+            </div>
+            <button class="burger-menu" aria-label="Меню">
+                <span class="burger-menu__line"></span>
+                <span class="burger-menu__line"></span>
+                <span class="burger-menu__line"></span>
+            </button>
+        </div>
+    </div>
+</header>
+<div class="mobile-nav">
+    <div class="mobile-nav__inner">
+        <div class="decor-item">
+            <include src="assets/svg/decor.html"></include>
+        </div>
+        <ul class="mobile-menu">
+            <li>
+                <a href="#">Пустынножительство</a>
+            </li>
+            <li>
+                <a href="#">Прп. Иларион Гдовский и&nbsp;церковь Покрова Божией Матери&nbsp;д.&nbsp;Озера</a>
+                <ul class="sub-menu">
+                    <li>
+                        <a href="#">Прп&nbsp;Иларион и&nbsp;основанный им&nbsp;на&nbsp;реке Желче монастырь</a>
+                    </li>
+                    <li>
+                        <a href="#">Церковь Покрова Божией Матери после&nbsp;закрытия монастыря</a>
+                    </li>
+                    <li>
+                        <a href="#">Мерзость запустения</a>
+                    </li>
+                    <li>
+                        <a href="#">Часовня памяти&nbsp;прп. Илариона Гдовского</a>
+                    </li>
+                    <li>
+                        <a href="#">Современность</a>
+                    </li>
+                    <li>
+                        <a href="#">Вехи истории</a>
+                    </li>
+                    <li>
+                        <a href="#">Обращение к&nbsp;паломникам</a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">Протоиерей Николай Гурьянов</a>
+                <ul class="sub-menu">
+                    <li>
+                        <a href="#">Благословение</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="page-link">
+                <a href="#">Главная</a>
+            </li>
+            <li class="page-link">
+                <a href="#">Фотоальбом</a>
+            </li>
+            <li class="page-link">
+                <a href="#">Видео</a>
+            </li>
+            <li class="page-link">
+                <a href="#">Контакты</a>
+            </li>
+        </ul>
+        <button class="plain-btn">
+            <include src="assets/svg/button-icon.html"></include>
+            <span>Напишите нам</span>
+        </button>
+    </div>
+</div>
+<main>
+    <section class="content inside-page">
+        <div class="container">
+            <div class="content__inner">
+                <div class="content__item">
+                    <div class="decor-item">
+                        <include src="assets/svg/decor.html"></include>
+                    </div>
+                    <aside class="sidebar">
+                        <nav class="sidebar__nav">
+                            <ul class="sidebar__list">
+                                <li>
+                                    <a href="#">Пустынножительство</a>
+                                </li>
+                                <li>
+                                    <a href="#">Прп. Иларион Гдовский и церковь Покрова Божией Матери д. Озера</a>
+                                    <ul class="sub-menu">
+                                        <li>
+                                            <a href="#">Прп Иларион и основанный им на реке Желче монастырь</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Церковь Покрова Божией Матери после закрытия монастыря</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Мерзость запустения</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Часовня памяти прп. Илариона Гдовского</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Современность</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Вехи истории</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Обращение к паломникам</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="#">Протоиерей Николай Гурьянов</a>
+                                    <ul class="sub-menu">
+                                        <li>
+                                            <a href="#">Благословение</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </nav>
+                    </aside>
+                    <div class="content__wrapper">
+                        <article class="book-card">
+                            <div class="book-card__cover">
+                                <img class="lazy" data-src="assets/images/book-img1.jpg" alt="#">
+                            </div>
+                            <a href="assets/images/book-img1.png" class="book-card__download" download>
+                           <span class="download-icon">
+                              <include src="assets/svg/pdf-icon.html"></include>
+                           </span>
+                                <span class="download-text">
+                              <span>Тихая радость</span>
+                              <span>Скачать</span>
+                           </span>
+                            </a>
+                        </article>
+                        <article class="book-card">
+                            <div class="book-card__cover">
+                                <img class="lazy" data-src="assets/images/book-img2.jpg" alt="#">
+                            </div>
+                            <a href="assets/images/book-img2.png" class="book-card__download" download>
+                           <span class="download-icon">
+                              <include src="assets/svg/pdf-icon.html"></include>
+                           </span>
+                                <span class="download-text">
+                              <span>Акафист</span>
+                              <span>Скачать</span>
+                           </span>
+                            </a>
+                        </article>
+                    </div>
+                    <div class="content-video">
+                        <a href="assets/video/video.mp4"
+                           class="content-video__item"
+                           data-video
+                           data-caption="Название видео 1">
+                            <span class="content-video__icon">
+                               <include src="assets/svg/video-icon.html"></include>
+                            </span>
+                            <span class="content-video__text">
+                            <span>Название видео 1</span>
+                            <span>смотреть</span>
+                         </span>
+                        </a>
+
+                        <a href="assets/video/video.mp4"
+                           class="content-video__item"
+                           data-video
+                           data-caption="Название видео 2">
+                        <span class="content-video__icon">
+                            <include src="assets/svg/video-icon.html"></include>
+                        </span>
+                            <span class="content-video__text">
+                            <span>Название видео 2</span>
+                            <span>смотреть</span>
+                         </span>
+                        </a>
+                    </div>
+                </div>
+                <div class="content__item">
+                    <div class="breadcrumb">
+                        <nav class="breadcrumb__inner">
+                            <ul class="breadcrumb__list">
+                                <li class="breadcrumb__item">
+                                    <a href="#" class="breadcrumb__link">Главная</a>
+                                </li>
+                                <li class="breadcrumb__item active">
+                                    <span>Фотоальбом</span>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                    <h2>Фотоальбом</h2>
+                    <div class="quote title-quote">
+                        <div class="decor-item">
+                            <include src="assets/svg/decor.html"></include>
+                        </div>
+                        <blockquote>
+                            История монастыря, основанного преподобным Иларионом Гдовским, и церкви Покрова Божией Матери д.. Озера в датах
+                        </blockquote>
+                    </div>
+                    <div class="main-content section-content">
+                        <div class="main-content__inner">
+                            <div class="photo-album">
+
+                                <div class="photo-tabs__nav">
+                                    <button class="photo-tabs__btn active" data-tab="church-views">Виды церкви</button>
+                                    <button class="photo-tabs__btn" data-tab="church-service">Церковная служба</button>
+                                    <button class="photo-tabs__btn" data-tab="chapel">Часовня</button>
+                                    <button class="photo-tabs__btn" data-tab="quiet-joy">Фото из книги «Тихая радость»</button>
+                                    <button class="photo-tabs__btn" data-tab="interior">Внутренний вид храма</button>
+                                </div>
+
+                                <div class="photo-tabs__content">
+                                    <div class="photo-tabs__pane active" id="church-views">
+                                        <div class="photo-album__inner">
+                                            <div class="photo-album__item">
+                                                <a href="assets/images/photo-album-img.jpg"
+                                                   class="lightbox-trigger"
+                                                   data-caption="Название фотографии 1">
+                                                    <img class="lazy" data-src="assets/images/photo-album-img.jpg" alt="Название фотографии 1">
+                                                </a>
+                                                <span>Название фотографии 1</span>
+                                            </div>
+                                            <div class="photo-album__item">
+                                                <a href="assets/images/photo-album-img2.jpg"
+                                                   class="lightbox-trigger"
+                                                   data-caption="Название фотографии 2">
+                                                    <img class="lazy" data-src="assets/images/photo-album-img2.jpg" alt="Название фотографии 2">
+                                                </a>
+                                                <span>Название фотографии 2</span>
+                                            </div>
+                                            <div class="photo-album__item">
+                                                <a href="assets/images/photo-album-img.jpg"
+                                                   class="lightbox-trigger"
+                                                   data-caption="Название фотографии 3">
+                                                    <img class="lazy" data-src="assets/images/photo-album-img.jpg" alt="Название фотографии 3">
+                                                </a>
+                                                <span>Название фотографии 3</span>
+                                            </div>
+                                            <div class="photo-album__item">
+                                                <a href="assets/images/photo-album-img2.jpg"
+                                                   class="lightbox-trigger"
+                                                   data-caption="Название фотографии 4">
+                                                    <img class="lazy" data-src="assets/images/photo-album-img2.jpg" alt="Название фотографии 4">
+                                                </a>
+                                                <span>Название фотографии 4</span>
+                                            </div>
+                                            <div class="photo-album__item">
+                                                <a href="assets/images/photo-album-img.jpg"
+                                                   class="lightbox-trigger"
+                                                   data-caption="Название фотографии 5">
+                                                    <img class="lazy" data-src="assets/images/photo-album-img.jpg" alt="Название фотографии 5">
+                                                </a>
+                                                <span>Название фотографии 5</span>
+                                            </div>
+                                            <div class="photo-album__item">
+                                                <a href="assets/images/photo-album-img2.jpg"
+                                                   class="lightbox-trigger"
+                                                   data-caption="Название фотографии 6">
+                                                    <img class="lazy" data-src="assets/images/photo-album-img2.jpg" alt="Название фотографии 6">
+                                                </a>
+                                                <span>Название фотографии 6</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="photo-tabs__pane" id="church-service">
+                                        <div class="photo-album__inner">
+                                            <div class="photo-album__item">
+                                                <a href="assets/images/photo-album-img.jpg"
+                                                   class="lightbox-trigger"
+                                                   data-caption="Название фотографии">
+                                                    <img class="lazy" data-src="assets/images/photo-album-img.jpg" alt="Название фотографии">
+                                                </a>
+                                                <span>Название фотографии</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="photo-tabs__pane" id="chapel">
+                                        <div class="photo-album__inner">
+                                            <div class="photo-album__item">
+                                                <a href="assets/images/photo-album-img.jpg"
+                                                   class="lightbox-trigger"
+                                                   data-caption="Название фотографии">
+                                                    <img class="lazy" data-src="assets/images/photo-album-img.jpg" alt="Название фотографии">
+                                                </a>
+                                                <span>Название фотографии</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="photo-tabs__pane" id="quiet-joy">
+                                        <div class="photo-album__inner">
+                                            <div class="photo-album__item">
+                                                <a href="assets/images/photo-album-img.jpg"
+                                                   class="lightbox-trigger"
+                                                   data-caption="Название фотографии">
+                                                    <img class="lazy" data-src="assets/images/photo-album-img.jpg" alt="Название фотографии">
+                                                </a>
+                                                <span>Название фотографии</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="photo-tabs__pane" id="interior">
+                                        <div class="photo-album__inner">
+                                            <div class="photo-album__item">
+                                                <a href="assets/images/photo-album-img.jpg"
+                                                   class="lightbox-trigger"
+                                                   data-caption="Название фотографии">
+                                                    <img class="lazy" data-src="assets/images/photo-album-img.jpg" alt="Название фотографии">
+                                                </a>
+                                                <span>Название фотографии</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mobile-content-item">
+                            <div class="content__wrapper">
+                                <article class="book-card">
+                                    <div class="book-card__cover">
+                                        <img class="lazy" data-src="assets/images/book-img1.jpg" alt="#">
+                                    </div>
+                                    <a href="assets/images/book-img1.png" class="book-card__download" download>
+                                        <span class="download-icon">
+                                            <include src="assets/svg/pdf-icon.html"></include>
+                                        </span>
+                                        <span class="download-text">
+                                            <span>Тихая радость</span>
+                                            <span>Скачать</span>
+                                        </span>
+                                    </a>
+                                </article>
+                                <article class="book-card">
+                                    <div class="book-card__cover">
+                                        <img class="lazy" data-src="assets/images/book-img2.jpg" alt="#">
+                                    </div>
+                                    <a href="assets/images/book-img2.png" class="book-card__download" download>
+                                        <span class="download-icon">
+                                            <include src="assets/svg/pdf-icon.html"></include>
+                                        </span>
+                                        <span class="download-text">
+                                            <span>Акафист</span>
+                                            <span>Скачать</span>
+                                        </span>
+                                    </a>
+                                </article>
+                            </div>
+                            <div class="content-video">
+                                <a href="assets/video/video.mp4"
+                                   class="content-video__item"
+                                   data-video
+                                   data-caption="Название видео 1">
+                            <span class="content-video__icon">
+                               <include src="assets/svg/video-icon.html"></include>
+                            </span>
+                                    <span class="content-video__text">
+                            <span>Название видео 1</span>
+                            <span>смотреть</span>
+                         </span>
+                                </a>
+
+                                <a href="assets/video/video.mp4"
+                                   class="content-video__item"
+                                   data-video
+                                   data-caption="Название видео 2">
+                        <span class="content-video__icon">
+                            <include src="assets/svg/video-icon.html"></include>
+                        </span>
+                                    <span class="content-video__text">
+                            <span>Название видео 2</span>
+                            <span>смотреть</span>
+                         </span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</main>
+<include src="layout/footer.html"></include>
+<include src="layout/modals.html"></include>
+</body>
+</html>

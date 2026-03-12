@@ -1,4 +1,3 @@
-// Инициализация мобильного меню с блокировкой скролла и оверлеем
 export function initMobileMenu() {
     const mobileNav = document.querySelector('.mobile-nav');
     const burgerBtn = document.querySelector('.burger-menu');
@@ -8,7 +7,6 @@ export function initMobileMenu() {
         return;
     }
 
-    // Создаем оверлей, если его нет
     if (!overlay) {
         overlay = document.createElement('div');
         overlay.className = 'mobile-nav-overlay';
@@ -65,7 +63,6 @@ export function initMobileMenu() {
         isMenuOpen = false;
     }
 
-    // Обработчик для бургер-кнопки
     burgerBtn.addEventListener('click', (e) => {
         e.preventDefault();
         e.stopPropagation();
@@ -77,7 +74,6 @@ export function initMobileMenu() {
         }
     });
 
-    // Закрытие по клику на оверлей
     overlay.addEventListener('click', (e) => {
         e.preventDefault();
         e.stopPropagation();
@@ -86,14 +82,12 @@ export function initMobileMenu() {
         }
     });
 
-    // Закрытие по Escape
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && isMenuOpen) {
             closeMenu();
         }
     });
 
-    // Обновление отступа при изменении размера окна
     window.addEventListener('resize', () => {
         if (isMenuOpen) {
             const newScrollbarWidth = calculateScrollbarWidth();
@@ -115,7 +109,6 @@ export function initMobileMenu() {
     };
 }
 
-// Инициализация модального окна обратной связи
 export function initFeedbackModal() {
     const modal = document.querySelector('.feedback-modal');
     const footerButtons = document.querySelectorAll('.footer__btn .border-btn');
@@ -174,7 +167,6 @@ export function initFeedbackModal() {
         isModalOpen = false;
     }
 
-    // Обработчики для кнопок в футере
     footerButtons.forEach(btn => {
         btn.addEventListener('click', (e) => {
             e.preventDefault();
@@ -183,7 +175,6 @@ export function initFeedbackModal() {
         });
     });
 
-    // Обработчик для кнопки в мобильном меню
     if (mobileMenuButton) {
         mobileMenuButton.addEventListener('click', (e) => {
             e.preventDefault();
@@ -240,7 +231,6 @@ export function initFeedbackModal() {
     };
 }
 
-// Универсальная функция для инициализации модалок
 function initModal(config) {
     const {
         modalSelector,
@@ -267,31 +257,23 @@ function initModal(config) {
 
     function disableBodyScroll() {
         scrollbarWidth = calculateScrollbarWidth();
-
-        // Сохраняем текущую позицию скролла
         const scrollY = window.scrollY;
 
-        // Добавляем класс к html
         document.documentElement.classList.add('modal-open');
 
-        // Компенсируем исчезновение скроллбара
         if (scrollbarWidth > 0) {
             document.documentElement.style.paddingRight = `${scrollbarWidth}px`;
         }
 
-        // Сохраняем позицию скролла в data-атрибуте
         document.documentElement.dataset.scrollY = scrollY;
     }
 
     function enableBodyScroll() {
-        // Восстанавливаем позицию скролла
         const scrollY = document.documentElement.dataset.scrollY;
 
-        // Убираем класс и стили
         document.documentElement.classList.remove('modal-open');
         document.documentElement.style.paddingRight = '';
 
-        // Возвращаем скролл
         if (scrollY) {
             window.scrollTo(0, parseInt(scrollY));
             delete document.documentElement.dataset.scrollY;
@@ -318,7 +300,6 @@ function initModal(config) {
         if (onClose) onClose();
     }
 
-    // Обработчики для кнопок открытия
     openButtons.forEach(btn => {
         btn.addEventListener('click', (e) => {
             e.preventDefault();
@@ -327,7 +308,6 @@ function initModal(config) {
         });
     });
 
-    // Обработчик для кнопки закрытия
     const closeBtn = modal.querySelector(closeButtonSelector);
     if (closeBtn) {
         closeBtn.addEventListener('click', (e) => {
@@ -337,7 +317,6 @@ function initModal(config) {
         });
     }
 
-    // Закрытие по клику на overlay
     overlay.addEventListener('click', (e) => {
         if (isModalOpen) {
             e.preventDefault();
@@ -346,19 +325,16 @@ function initModal(config) {
         }
     });
 
-    // Закрытие по Escape
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && isModalOpen) {
             closeModal();
         }
     });
 
-    // Предотвращение закрытия при клике внутри модалки
     modal.addEventListener('click', (e) => {
         e.stopPropagation();
     });
 
-    // Обновление отступа при изменении размера окна
     window.addEventListener('resize', () => {
         if (isModalOpen) {
             const newScrollbarWidth = calculateScrollbarWidth();
@@ -380,61 +356,49 @@ function initModal(config) {
     };
 }
 
-// Инициализация всех модалок
 export function initModals() {
-    // Модалка form-solution
     initModal({
         modalSelector: '.form-solution',
         openButtonsSelector: '.header__btn, .technology__btn.color-btn, .footer-btn.color-btn, .tasks__btn.color-btn, .cases__btn.color-btn',
         closeButtonSelector: '.modal-form__close'
     });
 
-    // Модалка form-authorization
     const authModal = initModal({
         modalSelector: '.form-authorization',
         openButtonsSelector: '.access-link',
         closeButtonSelector: '.modal-form__close'
     });
 
-    // Модалка form-registration
     const regModal = initModal({
         modalSelector: '.form-registration',
         openButtonsSelector: '.registration-link',
         closeButtonSelector: '.modal-form__close'
     });
 
-    // Логика переключения между модалками
     if (authModal && regModal) {
-        // При клике на registration-link в модалке авторизации
         const registrationLinks = document.querySelectorAll('.registration-link');
         registrationLinks.forEach(link => {
             link.addEventListener('click', (e) => {
                 e.preventDefault();
                 e.stopPropagation();
 
-                // Закрываем модалку авторизации
                 if (authModal.isOpen()) {
                     authModal.close();
                 }
 
-                // Открываем модалку регистрации
                 regModal.open();
             });
         });
 
-        // При клике на access-link (если нужно переключаться обратно)
         const accessLinks = document.querySelectorAll('.access-link');
         accessLinks.forEach(link => {
             link.addEventListener('click', (e) => {
                 e.preventDefault();
                 e.stopPropagation();
 
-                // Если открыта модалка регистрации, закрываем её
                 if (regModal.isOpen()) {
                     regModal.close();
                 }
-
-                // authModal откроется автоматически через openButtonsSelector
             });
         });
     }

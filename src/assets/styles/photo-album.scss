@@ -1,0 +1,355 @@
+@use "../styles/mixins.scss" as *;
+
+.photo-album {
+  &__inner {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 18.67px;
+    row-gap: 29.5px;
+
+    @media (max-width: 1550px) {
+      gap: 30px;
+    }
+
+    @media (max-width: 1250px) {
+      gap: 15px;
+    }
+
+    @media (max-width: 730px) {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+    }
+  }
+
+  &__item {
+    display: flex;
+    flex-direction: column;
+    gap: 7.5px;
+
+
+    opacity: 0;
+    transform: translateY(20px);
+
+    a {
+      display: block;
+      border-radius: 10px;
+      overflow: hidden;
+      aspect-ratio: 4/3;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+        border-radius: 10px;
+      }
+
+      &:hover img {
+        transform: scale(1.03);
+      }
+    }
+
+    span {
+      color: #31475E;
+      font-size: 16px;
+      line-height: 150%;
+    }
+  }
+
+  .photo-tabs__nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 14.5px;
+  }
+
+  .photo-tabs__btn {
+    display: flex;
+    height: var(--form-button-height, 45px);
+    padding: var(--space-indents-10, 10px) var(--space-indents-15, 15px);
+    justify-content: center;
+    align-items: center;
+    gap: 9px;
+    border-radius: var(--radius-radius-button, 7px);
+    background: var(--colors-buttonBlue, #265281);
+    border-color: var(--colors-buttonBlue, #265281);
+    color: #fff;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: inherit;
+    line-height: 1;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+
+    &.active {
+      border: 1px solid var(--colors-borderButton, #977939);
+      background: #FFF;
+      color: var(--colors-buttonLabel-secondary, #31475E);
+    }
+
+    &:hover:not(.active) {
+      background: rgba(151, 121, 57, 0.1);
+      color: var(--colors-buttonLabel-secondary, #31475E);
+    }
+
+    .photo-tabs__ripple {
+      position: absolute;
+      border-radius: 50%;
+      background-color: rgba(255, 255, 255, 0.3);
+      transform: scale(0);
+      animation: photo-tabs-ripple 0.6s ease-out;
+      pointer-events: none;
+    }
+  }
+
+  .photo-tabs__content {
+    position: relative;
+  }
+
+  .photo-tabs__pane {
+    display: none;
+
+    &.active {
+      display: block;
+    }
+  }
+}
+
+
+@keyframes photo-tabs-ripple {
+  0% {
+    transform: scale(0);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+@keyframes photo-tabs-fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+@media (max-width: 768px) {
+  .photo-album {
+    .photo-tabs__nav {
+      gap: 10px;
+    }
+
+    .photo-tabs__btn {
+      font-size: 16px;
+      padding: 6px 15px;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .photo-album {
+    .photo-tabs__btn {
+        font-size: 15px;
+    }
+  }
+}
+
+/* Кастомный лайтбокс */
+.custom-lightbox {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+  display: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+
+  &.active {
+    display: block;
+    opacity: 1;
+  }
+
+  .lightbox__overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: hsla(0, 0%, 100%, 0.7);
+    backdrop-filter: blur(13.7px);
+    cursor: pointer;
+  }
+
+  .lightbox__content {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .lightbox__image-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    max-width: 90vw;
+    max-height: 85vh;
+  }
+
+  .lightbox__image-wrapper {
+    position: relative;
+    display: inline-block;
+    max-width: 80vw;
+    max-height: 75vh;
+  }
+
+  .lightbox__image {
+    display: block;
+    max-width: 100%;
+    max-height: 75vh;
+    object-fit: contain;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  }
+
+  .lightbox__caption {
+    margin-top: 15px;
+    text-align: left;
+    color: #31475E;
+    font-size: 18px;
+    font-weight: 500;
+    padding: 5px 0;
+    background: transparent;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    @media (max-width: 768px) {
+      font-size: 16px;
+      margin-top: 10px;
+    }
+  }
+
+  .lightbox__close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 40px;
+    height: 40px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    transition: transform 0.2s ease;
+
+    svg {
+      width: 30px;
+      height: 30px;
+      transition: transform 0.2s ease;
+    }
+
+    &:hover {
+      transform: scale(1.3);
+
+      svg {
+        transform: scale(1.3);
+      }
+    }
+  }
+
+  .lightbox__nav {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 60px;
+    height: 60px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    transition: transform 0.2s ease;
+
+    @media (max-width: 768px) {
+      width: 40px;
+      height: 40px;
+    }
+
+    svg {
+      width: 60px;
+      height: 60px;
+      transition: transform 0.2s ease;
+
+      @media (max-width: 768px) {
+        width: 40px;
+        height: 40px;
+      }
+    }
+
+    &:hover {
+      transform: translateY(-50%) scale(1.1);
+
+      @media (max-width: 1250px) {
+        transform: translateY(-50%) scale(1);
+      }
+
+      svg {
+        transform: scale(1.1);
+
+        @media (max-width: 1250px) {
+          transform: scale(1);
+        }
+      }
+    }
+
+    &--prev {
+      left: 10px;
+
+      @media (max-width: 768px) {
+        left: 5px;
+      }
+
+      svg {
+        transform: rotate(180deg);
+      }
+
+      &:hover svg {
+        transform: rotate(180deg) scale(1.1);
+
+        @media (max-width: 1250px) {
+          transform: rotate(180deg) scale(1);
+        }
+      }
+    }
+
+    &--next {
+      right: 10px;
+
+      @media (max-width: 768px) {
+        right: 5px;
+      }
+
+      svg {
+        transform: none;
+      }
+    }
+  }
+}

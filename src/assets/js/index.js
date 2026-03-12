@@ -5,17 +5,18 @@ import "../styles/footer.scss";
 import "../styles/home.scss";
 import "../styles/modals.scss";
 import "../styles/section.scss";
+import "../styles/contacts.scss";
+import "../styles/photo-album.scss";
 import LazyLoad from "vanilla-lazyload";
 import Swiper from 'swiper';
 import 'swiper/swiper-bundle.css';
 import { Pagination, Navigation, Autoplay, Thumbs, EffectFade } from 'swiper/modules';
-import { Fancybox } from "@fancyapps/ui";
-import "@fancyapps/ui/dist/fancybox/fancybox.css";
 import IMask from 'imask';
 import { SlidersInit } from './sliders.js';
 import { initFeedbackModal, initMobileMenu } from './modals.js';
+import { initPhotoTabs } from './tabs.js';
+import { initLightbox } from './lightbox.js';
 
-// Инициализация модулей Swiper
 Swiper.use([Pagination, Navigation, Autoplay, Thumbs, EffectFade]);
 
 function initPhoneMasks() {
@@ -65,27 +66,17 @@ function initPhoneMasks() {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-    // Инициализируем LazyLoad
     const lazyLoadInstance = new LazyLoad();
 
-    // Инициализируем маски для телефонов
     initPhoneMasks();
 
-    // Инициализируем мобильное меню
     initMobileMenu();
 
-    // Инициализируем модальное окно обратной связи
     initFeedbackModal();
 
-    // Инициализируем слайдеры
     SlidersInit();
 
-    // Инициализируем Fancybox для галерей
-    Fancybox.bind("[data-fancybox]", {
-        Thumbs: false,
-        Toolbar: false,
-        Images: {
-            zoom: true,
-        },
-    });
+    initPhotoTabs();
+
+    initLightbox();
 });
