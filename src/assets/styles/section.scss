@@ -1,0 +1,143 @@
+@use "../styles/mixins.scss" as *;
+
+.breadcrumb {
+
+  @media (max-width: 1250px) {
+    display: none;
+  }
+
+  &__inner {
+     margin-bottom: 15px;
+  }
+
+  &__list {
+    display: flex;
+    gap: 8px;
+  }
+
+  &__item {
+
+    span {
+      font-size: 18px;
+      color: #A8B0B8;
+    }
+
+    &:not(.active) {
+      padding-right: 13px;
+      padding-left: 0;
+      position: relative;
+
+      &::after {
+        content: "";
+        position: absolute;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 5px;
+        height: 8px;
+        background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="5" height="8" viewBox="0 0 5 8" fill="none"><path d="M4.61957 4.50402C4.87455 4.18905 4.85705 3.7266 4.56457 3.43412L1.36487 0.234423C1.13489 0.00444407 0.792426 -0.0630494 0.492454 0.0619387C0.192482 0.186927 -3.15577e-07 0.4769 -3.0205e-07 0.79937L-3.36097e-08 7.19877C-2.00828e-08 7.52124 0.194982 7.81372 0.494954 7.9387C0.794926 8.06369 1.13739 7.9937 1.36487 7.76372L4.56457 4.56402L4.61957 4.50402Z" fill="%2331475E"/></svg>');
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+      }
+
+      a {
+        font-size: 18px;
+        color: #265281;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+}
+
+.quote {
+  &.title-quote {
+    margin-top: 15px;
+
+    blockquote {
+      color: #31475E;
+      font-size: 24px;
+      font-family: var(--font-montserrat);
+      font-weight: var(--font-bold);
+      line-height: 150%;
+
+      @media (max-width: 1550px) {
+        font-size: 20px;
+      }
+
+      @media (max-width: 1250px) {
+        font-size: 18px;
+      }
+    }
+
+    .decor-item {
+      margin-left: 20px;
+    }
+  }
+}
+
+
+.main-content {
+  &.section-content {
+    .main-content__inner {
+      display: block;
+      margin-bottom: 0;
+    }
+
+    .main-content__item {
+      display: grid;
+      grid-template-columns: minmax(auto, 341px) 1fr;
+      gap: 30px;
+      margin-bottom: 15px;
+
+      @media (max-width: 1250px) {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+
+        img {
+          max-width: 341px;
+        }
+      }
+
+      .main-content__media {
+        margin: 0;
+      }
+    }
+
+    .main-content__media {
+      display: flex;
+      gap: 30px;
+      flex-wrap: wrap;
+      margin-top: 15px;
+      margin-bottom: 15px;
+
+      .media-item {
+        max-width: 341px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+
+        span {
+          font-size: 16px;
+          color: #31475E;
+          font-weight: var(--font-bold);
+        }
+      }
+    }
+  }
+}
+
+.content {
+  &.inside-page {
+     .content__item {
+       &:last-child {
+         padding-bottom: 40px;
+       }
+     }
+  }
+}
+

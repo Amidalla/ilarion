@@ -4,6 +4,7 @@ import "../styles/header.scss";
 import "../styles/footer.scss";
 import "../styles/home.scss";
 import "../styles/modals.scss";
+import "../styles/section.scss";
 import LazyLoad from "vanilla-lazyload";
 import Swiper from 'swiper';
 import 'swiper/swiper-bundle.css';

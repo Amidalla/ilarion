@@ -48,8 +48,8 @@ li {
   @media (max-width: 730px) {
     width: 100%;
     max-width: 100%;
-    padding-left: 16px;
-    padding-right: 16px;
+    padding-left: 15px;
+    padding-right: 15px;
   }
 }
 
@@ -89,5 +89,9 @@ h2 {
 
   @media (max-width: 1250px) {
     font-size: 34px;
+  }
+
+  @media (max-width: 730px) {
+    font-size: 30px;
   }
 }
