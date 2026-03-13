@@ -48,6 +48,7 @@ function initFixedBackground() {
         bgElement.style.bottom = '0';
         bgElement.style.backgroundRepeat = 'no-repeat';
         bgElement.style.backgroundPosition = 'top center';
+        bgElement.style.backgroundColor = '#FFF';
         bgElement.style.zIndex = '0';
         bgElement.style.pointerEvents = 'none';
         bgElement.style.transform = 'none';
@@ -55,7 +56,7 @@ function initFixedBackground() {
 
         if (width <= 730) {
             bgElement.style.backgroundImage = `url(${homeBgMobile})`;
-            bgElement.style.backgroundSize = 'cover';
+            bgElement.style.backgroundSize = '100% auto';
         } else if (width <= 1250) {
             bgElement.style.backgroundImage = `url(${homeBgTablet})`;
             bgElement.style.backgroundSize = '100% auto';

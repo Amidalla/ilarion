@@ -11,6 +11,9 @@ export function initMobileMenu() {
         overlay = document.createElement('div');
         overlay.className = 'mobile-nav-overlay';
         document.body.appendChild(overlay);
+        
+        overlay.style.top = '90px';
+        overlay.style.height = 'calc(100vh - 90px)';
     }
 
     let isMenuOpen = false;
@@ -49,7 +52,7 @@ export function initMobileMenu() {
         disableBodyScroll();
 
         mobileNav.classList.add('active');
-        
+
         if (window.innerWidth > 450) {
             overlay.classList.add('active');
         }
@@ -103,7 +106,7 @@ export function initMobileMenu() {
                     document.documentElement.style.paddingRight = '';
                 }
             }
-            
+
             if (window.innerWidth <= 450) {
                 overlay.classList.remove('active');
             } else {
@@ -118,6 +121,7 @@ export function initMobileMenu() {
         isOpen: () => isMenuOpen
     };
 }
+
 
 export function initFeedbackModal(menuController) {
     const modal = document.querySelector('.feedback-modal');
@@ -162,7 +166,7 @@ export function initFeedbackModal(menuController) {
     }
 
     function openModal() {
-      
+
         if (menuController && menuController.isOpen()) {
             menuController.close();
         }

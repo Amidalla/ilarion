@@ -238,6 +238,15 @@ export class Lightbox {
     close() {
         this.lightbox.classList.remove('active');
         document.body.style.overflow = '';
+
+        // Останавливаем и сбрасываем видео при закрытии
+        const videos = this.videoWrapper.querySelectorAll('video');
+        videos.forEach(video => {
+            video.pause();
+            video.currentTime = 0;
+            video.load();
+        });
+
         this.cleanupMedia();
         this.isLoading = false;
     }
@@ -310,14 +319,22 @@ export class Lightbox {
                 this.isLoading = false;
             };
         } else {
-            this.videoWrapper.style.display = 'block';
+            this.videoWrapper.style.display = 'flex';
 
             if (item.src.endsWith('.mp4') || item.src.includes('/video/')) {
+                console.log('Video src:', item.src);
+
                 const video = document.createElement('video');
                 video.className = 'lightbox__video';
                 video.controls = true;
                 video.autoplay = false;
-                video.preload = 'metadata';
+                video.preload = 'none';
+                video.playsInline = true;
+
+                // Очищаем URL и добавляем параметр против кэша
+                let cleanSrc = item.src.split('#')[0].split('?')[0];
+                cleanSrc = cleanSrc + '?t=' + Date.now();
+                console.log('Cleaned src:', cleanSrc);
 
                 video.style.position = 'absolute';
                 video.style.visibility = 'hidden';
@@ -325,7 +342,7 @@ export class Lightbox {
                 video.style.pointerEvents = 'none';
 
                 const source = document.createElement('source');
-                source.src = item.src;
+                source.src = cleanSrc;
                 source.type = 'video/mp4';
 
                 video.appendChild(source);
@@ -333,30 +350,55 @@ export class Lightbox {
 
                 this.videoWrapper.appendChild(video);
 
-                video.onloadedmetadata = () => {
+                // Основной обработчик загрузки метаданных
+                video.addEventListener('loadedmetadata', () => {
+                    console.log('Video duration:', video.duration);
+                    console.log('Initial currentTime:', video.currentTime);
+
+                    video.currentTime = 0;
+
                     video.style.position = 'relative';
                     video.style.visibility = 'visible';
                     video.style.opacity = '1';
                     video.style.pointerEvents = 'auto';
 
                     this.isLoading = false;
+                });
 
-                    if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
-                        video.currentTime = 0.1;
+                // Дополнительная проверка после загрузки данных
+                video.addEventListener('loadeddata', () => {
+                    console.log('loadeddata - currentTime:', video.currentTime);
+                    if (Math.abs(video.currentTime) > 0.1) {
+                        video.currentTime = 0;
                     }
-                };
+                });
 
-                video.onerror = () => {
+                // Проверка при начале воспроизведения
+                video.addEventListener('play', () => {
+                    console.log('play - currentTime:', video.currentTime);
+                    if (Math.abs(video.currentTime) > 0.1) {
+                        video.currentTime = 0;
+                    }
+                });
+
+                video.addEventListener('error', (e) => {
+                    console.log('Video error:', e);
                     video.style.position = 'relative';
                     video.style.visibility = 'visible';
                     video.style.opacity = '1';
                     video.style.pointerEvents = 'auto';
                     this.captionEl.textContent = item.caption + ' (ошибка загрузки)';
                     this.isLoading = false;
-                };
+                });
+
+                // Принудительно загружаем видео
+                video.load();
+
             } else {
+                // Обработка iframe (YouTube, Vimeo, Rutube)
                 let videoUrl = item.src;
 
+                // Удаляем параметры автозапуска
                 videoUrl = videoUrl.replace(/[?&]autoplay=1/g, '');
                 videoUrl = videoUrl.replace(/[?&]autoplay=0/g, '');
 
