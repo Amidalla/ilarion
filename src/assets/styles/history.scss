@@ -1,16 +1,87 @@
-@use "../styles/mixins.scss" as *;
-
 .history {
   &__inner {
     display: grid;
     grid-template-columns: 30px 1fr;
     gap: 8px;
+    position: relative;
   }
 
-  &__item {
-    &:first-child {
-      background: url("../images/history-img.svg") no-repeat center;
-      background-size: contain;
+  &__timeline {
+    position: relative;
+    width: 30px;
+    min-height: 100%;
+
+    &-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      min-height: inherit;
+    }
+
+    // Линия - теперь от верха до низа без отступов
+    &-line {
+      position: absolute;
+      top: 0; // убрали отступ 14px
+      bottom: 0; // убрали отступ 14px
+      left: 50%;
+      transform: translateX(-50%);
+      width: 2px;
+      background-color: #6D6736;
+    }
+
+    // Шарики на концах
+    &-dot {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: #6D6736;
+      z-index: 2;
+
+      &--top {
+        top: 0;
+      }
+
+      &--bottom {
+        bottom: 0;
+      }
+    }
+
+    // Плавающий маркер
+    &-marker {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 28px;
+      height: 28px;
+      pointer-events: none;
+      transition: top 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 10;
+      top: 67px; // начальная позиция
+
+      &__outer {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        background-color: #6D6736;
+        opacity: 0.3;
+      }
+
+      &__inner {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 9.33px;
+        height: 9.33px;
+        border-radius: 50%;
+        background-color: #6D6736;
+      }
     }
   }
 
@@ -22,6 +93,7 @@
 
   &__block {
     max-width: 547px;
+    scroll-margin: 20px;
   }
 
   &__year {

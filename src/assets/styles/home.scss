@@ -271,10 +271,35 @@
     &:first-child {
       background: #F2F5F6;
       padding: 60px 18px 43px 18px;
+      position: sticky;
+      top: 0;
+      align-self: start;
+      max-height: none;
+      overflow-y: visible;
 
-      @media (max-width: 1550px) {
-        padding: 50px 15px 50px 24px;
+      &.is-sticky {
+        max-height: 100vh;
+        overflow-y: auto;
+
+
+        &::-webkit-scrollbar {
+          width: 6px;
+        }
+
+        &::-webkit-scrollbar-track {
+          background: rgba(38, 82, 129, 0.1);
+          border-radius: 10px;
+        }
+
+        &::-webkit-scrollbar-thumb {
+          background: #265281;
+          border-radius: 10px;
+        }
+
+        scrollbar-width: thin;
+        scrollbar-color: #265281 rgba(38, 82, 129, 0.1);
       }
+
       @media (max-width: 1250px) {
         display: none;
       }

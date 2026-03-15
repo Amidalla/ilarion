@@ -17,6 +17,7 @@ import { SlidersInit } from './sliders.js';
 import { initFeedbackModal, initMobileMenu } from './modals.js';
 import { initPhotoTabs } from './tabs.js';
 import { initLightbox } from './lightbox.js';
+import { initHistoryTimeline } from './history-timeline.js';
 
 import homeBg from '../images/home-bg.png';
 import homeBgLaptop from '../images/home-bg-laptop.png';
@@ -130,4 +131,40 @@ document.addEventListener('DOMContentLoaded', function() {
     initPhotoTabs();
     initLightbox();
     initFixedBackground();
+    initHistoryTimeline();
+
+    initStickyScroll();
 });
+
+function initStickyScroll() {
+    const stickyBlock = document.querySelector('.content__item:first-child');
+
+    if (!stickyBlock) return;
+
+
+    function checkSticky() {
+        const rect = stickyBlock.getBoundingClientRect();
+
+
+        if (rect.top <= 0) {
+            stickyBlock.classList.add('is-sticky');
+
+
+            stickyBlock.style.paddingTop = '20px';
+        } else {
+            stickyBlock.classList.remove('is-sticky');
+
+
+            stickyBlock.style.paddingTop = '';
+        }
+    }
+
+
+    window.addEventListener('scroll', checkSticky, { passive: true });
+
+
+    checkSticky();
+
+
+    window.addEventListener('resize', checkSticky);
+}
