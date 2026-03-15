@@ -274,30 +274,28 @@
       position: sticky;
       top: 0;
       align-self: start;
+
+      overflow-y: auto;
       max-height: none;
-      overflow-y: visible;
+
+
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+
+
+      transition: box-shadow 0.3s ease,
+      background-color 0.3s ease,
+      margin 0.3s ease,
+      padding 0.3s ease;
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
 
       &.is-sticky {
         max-height: 100vh;
-        overflow-y: auto;
 
-
-        &::-webkit-scrollbar {
-          width: 6px;
-        }
-
-        &::-webkit-scrollbar-track {
-          background: rgba(38, 82, 129, 0.1);
-          border-radius: 10px;
-        }
-
-        &::-webkit-scrollbar-thumb {
-          background: #265281;
-          border-radius: 10px;
-        }
-
-        scrollbar-width: thin;
-        scrollbar-color: #265281 rgba(38, 82, 129, 0.1);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
       }
 
       @media (max-width: 1250px) {
@@ -317,7 +315,7 @@
       }
 
       @media (max-width: 730px) {
-        padding: 30px 15px 30px 15px;
+        padding: 15px;
       }
     }
   }
@@ -389,7 +387,7 @@
 
       &.active {
         background: #FFF;
-        margin-right: -18px;
+        margin-right: -24px;
         margin-left: -18px;
         padding-left: 18px;
         padding-right: 18px;

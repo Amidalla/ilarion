@@ -138,33 +138,36 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function initStickyScroll() {
     const stickyBlock = document.querySelector('.content__item:first-child');
-
     if (!stickyBlock) return;
 
+    let timeoutId = null;
 
     function checkSticky() {
         const rect = stickyBlock.getBoundingClientRect();
 
-
         if (rect.top <= 0) {
+
             stickyBlock.classList.add('is-sticky');
-
-
             stickyBlock.style.paddingTop = '20px';
+
+
+            if (timeoutId) {
+                clearTimeout(timeoutId);
+                timeoutId = null;
+            }
         } else {
-            stickyBlock.classList.remove('is-sticky');
 
-
-            stickyBlock.style.paddingTop = '';
+            if (!timeoutId) {
+                timeoutId = setTimeout(() => {
+                    stickyBlock.classList.remove('is-sticky');
+                    stickyBlock.style.paddingTop = '';
+                    timeoutId = null;
+                }, 50);
+            }
         }
     }
 
-
     window.addEventListener('scroll', checkSticky, { passive: true });
-
-
     checkSticky();
-
-
     window.addEventListener('resize', checkSticky);
 }
