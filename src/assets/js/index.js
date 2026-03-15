@@ -142,18 +142,16 @@ function initStickyScroll() {
 
     if (!stickyBlock || !contentInner) return;
 
-
     function isContentEnough() {
         const contentHeight = contentInner.scrollHeight;
         const stickyHeight = stickyBlock.scrollHeight;
         const windowHeight = window.innerHeight;
 
 
-        return contentHeight > stickyHeight || contentHeight > windowHeight;
+        return contentHeight > stickyHeight && contentHeight > windowHeight;
     }
 
     function checkSticky() {
-
         if (!isContentEnough()) {
             stickyBlock.classList.remove('is-sticky');
             return;
@@ -163,12 +161,9 @@ function initStickyScroll() {
         const contentRect = contentInner.getBoundingClientRect();
         const windowHeight = window.innerHeight;
 
-
         if (rect.top <= 0 && contentRect.bottom > windowHeight) {
             stickyBlock.classList.add('is-sticky');
-        }
-
-        else {
+        } else {
             stickyBlock.classList.remove('is-sticky');
         }
     }
