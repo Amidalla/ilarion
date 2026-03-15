@@ -138,36 +138,42 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function initStickyScroll() {
     const stickyBlock = document.querySelector('.content__item:first-child');
-    if (!stickyBlock) return;
+    const contentInner = document.querySelector('.content__inner');
 
-    let timeoutId = null;
+    if (!stickyBlock || !contentInner) return;
+
+
+    function isContentEnough() {
+        const contentHeight = contentInner.scrollHeight;
+        const stickyHeight = stickyBlock.scrollHeight;
+        const windowHeight = window.innerHeight;
+
+
+        return contentHeight > stickyHeight || contentHeight > windowHeight;
+    }
 
     function checkSticky() {
+
+        if (!isContentEnough()) {
+            stickyBlock.classList.remove('is-sticky');
+            return;
+        }
+
         const rect = stickyBlock.getBoundingClientRect();
+        const contentRect = contentInner.getBoundingClientRect();
+        const windowHeight = window.innerHeight;
 
-        if (rect.top <= 0) {
 
+        if (rect.top <= 0 && contentRect.bottom > windowHeight) {
             stickyBlock.classList.add('is-sticky');
-            stickyBlock.style.paddingTop = '20px';
+        }
 
-
-            if (timeoutId) {
-                clearTimeout(timeoutId);
-                timeoutId = null;
-            }
-        } else {
-
-            if (!timeoutId) {
-                timeoutId = setTimeout(() => {
-                    stickyBlock.classList.remove('is-sticky');
-                    stickyBlock.style.paddingTop = '';
-                    timeoutId = null;
-                }, 50);
-            }
+        else {
+            stickyBlock.classList.remove('is-sticky');
         }
     }
 
     window.addEventListener('scroll', checkSticky, { passive: true });
-    checkSticky();
     window.addEventListener('resize', checkSticky);
+    checkSticky();
 }

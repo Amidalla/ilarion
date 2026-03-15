@@ -274,19 +274,13 @@
       position: sticky;
       top: 0;
       align-self: start;
-
       overflow-y: auto;
       max-height: none;
-
 
       scrollbar-width: none;
       -ms-overflow-style: none;
 
-
-      transition: box-shadow 0.3s ease,
-      background-color 0.3s ease,
-      margin 0.3s ease,
-      padding 0.3s ease;
+      transition: box-shadow 0.3s ease;
 
       &::-webkit-scrollbar {
         display: none;
@@ -294,7 +288,6 @@
 
       &.is-sticky {
         max-height: 100vh;
-
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
       }
 
@@ -335,9 +328,10 @@
     flex-direction: column;
 
     & > li {
-      padding-top: 8px;
-      padding-bottom: 8px;
       border-bottom: 1px solid #CFD9E3;
+      padding: 8px 18px 8px 18px;
+      margin-right: -18px;
+      margin-left: -18px;
 
       &.active {
         background: #FFF;
@@ -387,7 +381,7 @@
 
       &.active {
         background: #FFF;
-        margin-right: -24px;
+        margin-right: -18px;
         margin-left: -18px;
         padding-left: 18px;
         padding-right: 18px;
