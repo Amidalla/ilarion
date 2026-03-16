@@ -238,8 +238,7 @@ export class Lightbox {
     close() {
         this.lightbox.classList.remove('active');
         document.body.style.overflow = '';
-
-        // Останавливаем и сбрасываем видео при закрытии
+        
         const videos = this.videoWrapper.querySelectorAll('video');
         videos.forEach(video => {
             video.pause();
@@ -291,7 +290,7 @@ export class Lightbox {
         this.captionEl.textContent = item.caption;
 
         if (this.currentType === 'image') {
-            // Показываем стрелки только если изображений больше одного
+       
             if (this.imageItems.length > 1) {
                 this.prevBtn.style.display = 'flex';
                 this.nextBtn.style.display = 'flex';
@@ -350,7 +349,7 @@ export class Lightbox {
 
                 this.videoWrapper.appendChild(video);
 
-                // Основной обработчик загрузки метаданных
+               
                 video.addEventListener('loadedmetadata', () => {
                     console.log('Video duration:', video.duration);
                     console.log('Initial currentTime:', video.currentTime);
@@ -365,7 +364,7 @@ export class Lightbox {
                     this.isLoading = false;
                 });
 
-                // Дополнительная проверка после загрузки данных
+            
                 video.addEventListener('loadeddata', () => {
                     console.log('loadeddata - currentTime:', video.currentTime);
                     if (Math.abs(video.currentTime) > 0.1) {
@@ -373,7 +372,7 @@ export class Lightbox {
                     }
                 });
 
-                // Проверка при начале воспроизведения
+             
                 video.addEventListener('play', () => {
                     console.log('play - currentTime:', video.currentTime);
                     if (Math.abs(video.currentTime) > 0.1) {
@@ -391,14 +390,14 @@ export class Lightbox {
                     this.isLoading = false;
                 });
 
-                // Принудительно загружаем видео
+                
                 video.load();
 
             } else {
-                // Обработка iframe (YouTube, Vimeo, Rutube)
+               
                 let videoUrl = item.src;
 
-                // Удаляем параметры автозапуска
+               
                 videoUrl = videoUrl.replace(/[?&]autoplay=1/g, '');
                 videoUrl = videoUrl.replace(/[?&]autoplay=0/g, '');
 
