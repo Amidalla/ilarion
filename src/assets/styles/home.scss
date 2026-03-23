@@ -85,6 +85,7 @@
     grid-template-columns: 1fr 261px;
     gap: 29px;
     margin-bottom: 314px;
+    position: relative;
 
     @media (max-width: 1550px) {
       margin-bottom: 235px;
@@ -205,6 +206,9 @@
       color: #FFF;
       font-weight: var(--font-semibold);
       margin-left: auto;
+      position: absolute;
+      right: 20px;
+      z-index: 1;
 
       @media (max-width: 1550px) {
         font-size: 18px;
@@ -228,8 +232,8 @@
 
     @media (max-width: 730px) {
       position: absolute;
-      bottom: 55px;
-      right: 0;
+      bottom: -50px;
+      right: 7px;
       width: 150px;
     }
 
