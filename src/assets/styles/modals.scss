@@ -140,6 +140,12 @@ html.modal-open {
   gap: 8px;
   cursor: pointer;
 
+  label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+
   input[type="checkbox"] {
     appearance: none;
     -webkit-appearance: none;
@@ -259,6 +265,66 @@ html.modal-open {
 
     &:hover {
       transform: scale(1.2);
+    }
+  }
+}
+
+.consent-notice {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  right: 20px;
+  z-index: 1000;
+
+  &__inner {
+    background: #FFFFFF;
+    backdrop-filter: blur(7.0500001907px);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 10px 30px;
+    align-items: center;
+    box-shadow: 0px 2px 27.9px 0px rgba(168, 168, 168, .7215686275);
+
+    p {
+      color: #31475E;
+
+      @media (max-width: 1250px) {
+        font-size: 15px;
+      }
+    }
+
+    a {
+      color: #31475E;
+      text-decoration: underline;
+
+
+      &:hover {
+        text-decoration: none;
+      }
+    }
+  }
+
+  &__close {
+    color: #FFF;
+    font-size: 16px;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #265281;
+    backdrop-filter: blur(7.0500001907px);
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    @media (max-width: 1250px) {
+      font-size: 15px;
+    }
+
+    &:hover {
+      transform: translateY(-3px);
     }
   }
 }

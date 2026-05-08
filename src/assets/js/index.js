@@ -19,10 +19,10 @@ import { initPhotoTabs } from './tabs.js';
 import { initLightbox } from './lightbox.js';
 import { initHistoryTimeline } from './history-timeline.js';
 
-import homeBg from '../images/home-bg.png';
-import homeBgLaptop from '../images/home-bg-laptop.png';
-import homeBgTablet from '../images/home-bg-tablet.png';
-import homeBgMobile from '../images/home-bg-mobile.png';
+import homeBg from '../images/home-bg.webp';
+import homeBgLaptop from '../images/home-bg-laptop.webp';
+import homeBgTablet from '../images/home-bg-tablet.webp';
+import homeBgMobile from '../images/home-bg-mobile.webp';
 
 Swiper.use([Pagination, Navigation, Autoplay, Thumbs, EffectFade]);
 

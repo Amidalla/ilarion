@@ -16,17 +16,19 @@
     }
 
     @media (max-width: 730px) {
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 15px;
     }
   }
 
   &__item {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
     display: flex;
     flex-direction: column;
     gap: 7.5px;
     transition: all 0.3s ease;
-
 
     opacity: 0;
     transform: translateY(20px);
@@ -43,6 +45,7 @@
       border-radius: 10px;
       overflow: hidden;
       aspect-ratio: 4/3;
+      min-height: 123px;
 
       img {
         width: 100%;
@@ -204,6 +207,13 @@
     justify-content: center;
   }
 
+
+  .lightbox__media-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
   .lightbox__image-container {
     display: flex;
     flex-direction: column;
@@ -217,6 +227,7 @@
     display: inline-block;
     max-width: 80vw;
     max-height: 75vh;
+    margin: 0 auto;
   }
 
   .lightbox__image {
@@ -229,16 +240,14 @@
 
   .lightbox__caption {
     margin-top: 15px;
-    text-align: left;
     color: #31475E;
     font-size: 18px;
     font-weight: 500;
-    padding: 5px 0;
+    padding: 5px 10px;
     background: transparent;
     width: 100%;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    text-align: center;
+
 
     @media (max-width: 768px) {
       font-size: 16px;
@@ -293,11 +302,6 @@
     padding: 0;
     transition: transform 0.2s ease;
 
-    @media (max-width: 768px) {
-      width: 40px;
-      height: 40px;
-    }
-
     svg {
       width: 60px;
       height: 60px;
@@ -329,7 +333,7 @@
       left: 10px;
 
       @media (max-width: 768px) {
-        left: 5px;
+        left: -15px;
       }
 
       svg {
@@ -349,7 +353,7 @@
       right: 10px;
 
       @media (max-width: 768px) {
-        right: 5px;
+        right: -15px;
       }
 
       svg {

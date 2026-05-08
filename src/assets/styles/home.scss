@@ -52,53 +52,67 @@
 
   @media (max-width: 730px) {
     &::before {
-      background-image: url("../images/home-bg-mobile.png");
+      background-image: url("../images/home-bg-mobile.webp");
       background-size: cover;
     }
   }
 
   @media (min-width: 731px) and (max-width: 1250px) {
     &::before {
-      background-image: url("../images/home-bg-tablet.png");
+      background-image: url("../images/home-bg-tablet.webp");
       background-size: 100% auto;
     }
   }
 
   @media (min-width: 1251px) and (max-width: 1550px) {
     &::before {
-      background-image: url("../images/home-bg-laptop.png");
+      background-image: url("../images/home-bg-laptop.webp");
       background-size: 100% auto;
     }
   }
 
   @media (min-width: 1551px) {
     &::before {
-      background-image: url("../images/home-bg.png");
+      background-image: url("../images/home-bg.webp");
       background-size: 100% auto;
     }
   }
 }
 
 .hero {
+
+  .container {
+
+  padding-bottom: 314px;
+
+  @media (max-width: 1550px) {
+    padding-bottom: 235px;
+  }
+
+  @media (max-width: 1250px) {
+    padding-bottom: 164px;
+  }
+
+  @media (max-width: 750px) {
+    padding-bottom: 122px;
+  }
+}
+
   &__inner {
     display: grid;
     grid-template-columns: 1fr 261px;
     gap: 29px;
-    margin-bottom: 314px;
     position: relative;
 
     @media (max-width: 1550px) {
-      margin-bottom: 235px;
       grid-template-columns: 1fr 194px;
     }
 
     @media (max-width: 1250px) {
-      margin-bottom: 164px;
       grid-template-columns: 1fr 139px;
     }
 
     @media (max-width: 730px) {
-      margin-bottom: 122px;
       display: block;
       position: relative;
     }
@@ -485,18 +499,16 @@
   &__text {
     display: flex;
     flex-direction: column;
-    width: 136px;
+    width: 100%;
 
     span {
       color: #31475E;
       font-size: 14px;
-      max-width: 136px;
+      display: inline-block;
+      width: 100%;
 
       &:first-child {
         font-weight: var(--font-bold);
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
       }
     }
   }
@@ -613,10 +625,6 @@
       line-height: 150%;
       display: block;
       margin-top: 16px;
-
-      @media (max-width: 1550px) {
-        display: none;
-      }
     }
   }
 

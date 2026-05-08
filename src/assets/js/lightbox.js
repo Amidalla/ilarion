@@ -8,6 +8,10 @@ export class Lightbox {
         this.touchStartX = 0;
         this.touchEndX = 0;
         this.minSwipeDistance = 50;
+        this.currentScale = 1;
+        this.minScale = 1;
+        this.maxScale = 3;
+        this.scaleStep = 0.1;
         this.init();
     }
 
@@ -44,6 +48,8 @@ export class Lightbox {
                 .custom-lightbox .lightbox__image {
                     touch-action: pan-y pinch-zoom;
                     -webkit-tap-highlight-color: transparent;
+                    transition: transform 0.2s ease;
+                    transform-origin: center center;
                 }
             `;
             document.head.appendChild(style);
@@ -115,6 +121,32 @@ export class Lightbox {
 
         this.bindLightboxEvents();
         this.bindTouchEvents();
+        this.bindZoomEvents();
+    }
+
+    bindZoomEvents() {
+        this.image.addEventListener('wheel', (e) => {
+            if (this.currentType !== 'image') return;
+            e.preventDefault();
+
+            if (e.deltaY < 0) {
+                if (this.currentScale < this.maxScale) {
+                    this.currentScale = Math.min(this.currentScale + this.scaleStep, this.maxScale);
+                    this.image.style.transform = `scale(${this.currentScale})`;
+                }
+            } else {
+                if (this.currentScale > this.minScale) {
+                    this.currentScale = Math.max(this.currentScale - this.scaleStep, this.minScale);
+                    this.image.style.transform = `scale(${this.currentScale})`;
+                }
+            }
+        }, { passive: false });
+
+        this.image.addEventListener('dblclick', () => {
+            if (this.currentType !== 'image') return;
+            this.currentScale = this.minScale;
+            this.image.style.transform = `scale(${this.currentScale})`;
+        });
     }
 
     bindTouchEvents() {
@@ -143,22 +175,38 @@ export class Lightbox {
     }
 
     bindTriggers() {
+        const openLightbox = (trigger) => {
+            this.collectItems();
+
+            const imageIndex = this.imageItems.findIndex(item => item.element === trigger);
+            if (imageIndex !== -1) {
+                this.currentType = 'image';
+                this.currentIndex = imageIndex;
+                this.currentScale = this.minScale;
+                this.image.style.transform = `scale(${this.currentScale})`;
+                this.open();
+                return;
+            }
+
+            const videoIndex = this.videoItems.findIndex(item => item.element === trigger);
+            if (videoIndex !== -1) {
+                this.currentType = 'video';
+                this.currentIndex = videoIndex;
+                this.open();
+            }
+        };
+
         document.addEventListener('click', (e) => {
+            const isNavButton = e.target.closest('.lightbox__nav, .lightbox__close');
+            if (isNavButton) {
+                return;
+            }
+
             const imageTrigger = e.target.closest('.lightbox-trigger');
             if (imageTrigger) {
                 e.preventDefault();
                 e.stopPropagation();
-                this.collectItems();
-
-                const imageIndex = this.imageItems.findIndex(item =>
-                    item.element === imageTrigger
-                );
-
-                if (imageIndex !== -1) {
-                    this.currentType = 'image';
-                    this.currentIndex = imageIndex;
-                    this.open();
-                }
+                openLightbox(imageTrigger);
                 return;
             }
 
@@ -166,17 +214,7 @@ export class Lightbox {
             if (videoTrigger) {
                 e.preventDefault();
                 e.stopPropagation();
-                this.collectItems();
-
-                const videoIndex = this.videoItems.findIndex(item =>
-                    item.element === videoTrigger
-                );
-
-                if (videoIndex !== -1) {
-                    this.currentType = 'video';
-                    this.currentIndex = videoIndex;
-                    this.open();
-                }
+                openLightbox(videoTrigger);
             }
         });
     }
@@ -191,23 +229,26 @@ export class Lightbox {
         });
 
         this.closeBtn.addEventListener('click', (e) => {
+            e.preventDefault();
             e.stopPropagation();
             this.close();
         });
 
-        this.prevBtn.addEventListener('click', (e) => {
+        const handleNav = (direction, e) => {
+            e.preventDefault();
             e.stopPropagation();
             if (this.currentType === 'image') {
-                this.navigateImage('prev');
+                this.currentScale = this.minScale;
+                this.image.style.transform = `scale(${this.currentScale})`;
+                this.navigateImage(direction);
             }
-        });
+        };
 
-        this.nextBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            if (this.currentType === 'image') {
-                this.navigateImage('next');
-            }
-        });
+        this.prevBtn.addEventListener('mousedown', (e) => handleNav('prev', e));
+        this.prevBtn.addEventListener('touchstart', (e) => handleNav('prev', e));
+
+        this.nextBtn.addEventListener('mousedown', (e) => handleNav('next', e));
+        this.nextBtn.addEventListener('touchstart', (e) => handleNav('next', e));
 
         document.addEventListener('keydown', (e) => {
             if (!this.lightbox.classList.contains('active')) return;
@@ -219,10 +260,14 @@ export class Lightbox {
             }
             if (e.key === 'ArrowLeft') {
                 e.preventDefault();
+                this.currentScale = this.minScale;
+                this.image.style.transform = `scale(${this.currentScale})`;
                 this.navigateImage('prev');
             }
             if (e.key === 'ArrowRight') {
                 e.preventDefault();
+                this.currentScale = this.minScale;
+                this.image.style.transform = `scale(${this.currentScale})`;
                 this.navigateImage('next');
             }
         });
@@ -238,7 +283,9 @@ export class Lightbox {
     close() {
         this.lightbox.classList.remove('active');
         document.body.style.overflow = '';
-        
+        this.currentScale = this.minScale;
+        this.image.style.transform = `scale(${this.currentScale})`;
+
         const videos = this.videoWrapper.querySelectorAll('video');
         videos.forEach(video => {
             video.pause();
@@ -290,7 +337,6 @@ export class Lightbox {
         this.captionEl.textContent = item.caption;
 
         if (this.currentType === 'image') {
-       
             if (this.imageItems.length > 1) {
                 this.prevBtn.style.display = 'flex';
                 this.nextBtn.style.display = 'flex';
@@ -321,8 +367,6 @@ export class Lightbox {
             this.videoWrapper.style.display = 'flex';
 
             if (item.src.endsWith('.mp4') || item.src.includes('/video/')) {
-                console.log('Video src:', item.src);
-
                 const video = document.createElement('video');
                 video.className = 'lightbox__video';
                 video.controls = true;
@@ -330,10 +374,8 @@ export class Lightbox {
                 video.preload = 'none';
                 video.playsInline = true;
 
-                // Очищаем URL и добавляем параметр против кэша
                 let cleanSrc = item.src.split('#')[0].split('?')[0];
                 cleanSrc = cleanSrc + '?t=' + Date.now();
-                console.log('Cleaned src:', cleanSrc);
 
                 video.style.position = 'absolute';
                 video.style.visibility = 'hidden';
@@ -349,39 +391,28 @@ export class Lightbox {
 
                 this.videoWrapper.appendChild(video);
 
-               
                 video.addEventListener('loadedmetadata', () => {
-                    console.log('Video duration:', video.duration);
-                    console.log('Initial currentTime:', video.currentTime);
-
                     video.currentTime = 0;
-
                     video.style.position = 'relative';
                     video.style.visibility = 'visible';
                     video.style.opacity = '1';
                     video.style.pointerEvents = 'auto';
-
                     this.isLoading = false;
                 });
 
-            
                 video.addEventListener('loadeddata', () => {
-                    console.log('loadeddata - currentTime:', video.currentTime);
                     if (Math.abs(video.currentTime) > 0.1) {
                         video.currentTime = 0;
                     }
                 });
 
-             
                 video.addEventListener('play', () => {
-                    console.log('play - currentTime:', video.currentTime);
                     if (Math.abs(video.currentTime) > 0.1) {
                         video.currentTime = 0;
                     }
                 });
 
                 video.addEventListener('error', (e) => {
-                    console.log('Video error:', e);
                     video.style.position = 'relative';
                     video.style.visibility = 'visible';
                     video.style.opacity = '1';
@@ -390,14 +421,11 @@ export class Lightbox {
                     this.isLoading = false;
                 });
 
-                
                 video.load();
 
             } else {
-               
                 let videoUrl = item.src;
 
-               
                 videoUrl = videoUrl.replace(/[?&]autoplay=1/g, '');
                 videoUrl = videoUrl.replace(/[?&]autoplay=0/g, '');
 
