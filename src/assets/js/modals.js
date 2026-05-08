@@ -13,7 +13,7 @@ export function initMobileMenu() {
         document.body.appendChild(overlay);
         
         overlay.style.top = '90px';
-        overlay.style.height = 'calc(100vh - 90px)';
+        overlay.style.height = 'calc(100vh - 90px);
     }
 
     let isMenuOpen = false;
